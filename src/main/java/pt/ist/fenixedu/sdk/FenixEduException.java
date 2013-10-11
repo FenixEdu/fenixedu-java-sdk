@@ -1,6 +1,6 @@
 package pt.ist.fenixedu.sdk;
 
-public class FEException extends RuntimeException {
+public class FenixEduException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -8,7 +8,7 @@ public class FEException extends RuntimeException {
 
     private final Throwable throwable;
 
-    public FEException(String message, Throwable throwable) {
+    public FenixEduException(String message, Throwable throwable) {
         this.message = message;
         this.throwable = throwable;
     }

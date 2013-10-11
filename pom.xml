@@ -1,27 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pt.ist</groupId>
 	<artifactId>fenixedu-sdk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<version.com.sun.jersey.jersey.client>1.17.1</version.com.sun.jersey.jersey.client>
+		<version.com.google.guava.guava>14.0.1</version.com.google.guava.guava>
+		<version.com.google.code.gson.gson>2.2.4</version.com.google.code.gson.gson>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>1.17.1</version>
+			<version>${version.com.sun.jersey.jersey.client}</version>
 		</dependency>
 		<dependency>
-      		<groupId>com.google.guava</groupId>
-      		<artifactId>guava</artifactId>
-      		<version>14.0.1</version>
-      		<scope>compile</scope>
-    	</dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${version.com.google.guava.guava}</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.4</version>
+			<version>${version.com.google.code.gson.gson}</version>
 		</dependency>
 	</dependencies>
 

@@ -4,6 +4,7 @@ public class FenixEduConfig {
 
 	public static final String CONSUMER_KEY_PROPERTY = "fenixedu.consumer.key";
 	public static final String CONSUMER_SECRET_PROPERTY = "fenixedu.consumer.secret";
+	public static final String ACCESS_TOKEN = "fenixedu.access.token";
 
 	public static final String BASE_URL = "fenixedu.base.url";
 	public static final String CALLBACK_URL = "fenixedu.callback.url";
@@ -18,9 +19,10 @@ public class FenixEduConfig {
 	private String refreshToken;
 
 	public FenixEduConfig(String consumerKey, String consumerSecret,
-			String baseUrl, String callbackUrl) {
+			String accessToken, String baseUrl, String callbackUrl) {
 		this.consumerKey = consumerKey;
 		this.consumerSecret = consumerSecret;
+		this.accessToken = accessToken;
 		this.baseUrl = baseUrl;
 		this.callbackUrl = callbackUrl;
 	}
