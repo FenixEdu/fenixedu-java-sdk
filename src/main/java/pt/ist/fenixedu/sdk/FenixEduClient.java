@@ -10,6 +10,9 @@ import java.util.Properties;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.base.Joiner;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -20,6 +23,10 @@ import com.sun.jersey.api.client.WebResource;
 
 public final class FenixEduClient {
 
+    private static final Logger LOG = LoggerFactory.getLogger(FenixEduClient.class);
+
+    private static final String DEFAULT_BASE_URL = "https://fenix.ist.utl.pt";
+
     private final FenixEduConfig config;
 
     private final Client client;
@@ -27,33 +34,53 @@ public final class FenixEduClient {
     FenixEduClient() throws IOException {
         Properties props = new Properties();
         props.load(getClass().getResourceAsStream("/fenixedu.config"));
+        String consumerKey = props.getProperty(FenixEduConfig.CONSUMER_KEY);
+        String consumerSecret = props.getProperty(FenixEduConfig.CONSUMER_SECRET);
+        String callbackUrl = props.getProperty(FenixEduConfig.CALLBACK_URL, null);
+        String baseUrl = props.getProperty(FenixEduConfig.BASE_URL, DEFAULT_BASE_URL);
+
+        String accessToken = props.getProperty(FenixEduConfig.ACCESS_TOKEN, null);
+
         this.client = Client.create();
-        this.config =
-                new FenixEduConfig(props.getProperty(FenixEduConfig.CONSUMER_KEY_PROPERTY),
-                        props.getProperty(FenixEduConfig.CONSUMER_SECRET_PROPERTY),
-                        props.getProperty(FenixEduConfig.ACCESS_TOKEN), props.getProperty(FenixEduConfig.BASE_URL),
-                        props.getProperty(FenixEduConfig.CALLBACK_URL));
+        this.config = new FenixEduConfig(consumerKey, consumerSecret, accessToken, baseUrl, callbackUrl);
+
     }
 
     public String getAuthenticationUrl() {
-        return config.getBaseUrl() + "/external/oauth.do?method=getUserPermission&client_id=" + this.config.getConsumerKey()
-                + "&redirect_uri=" + this.config.getCallbackUrl();
+        Map<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put("client_id", this.config.getConsumerKey());
+        paramMap.put("redirect_uri", this.config.getCallbackUrl());
+
+        String url = String.format("%s/oauth/userdialog", config.getBaseUrl());
+        String[] params = new String[] { "client_id", "redirect_uri" };
+
+        List<String> queryParams = new ArrayList<String>();
+
+        for (String param : params) {
+            queryParams.add(Joiner.on("=").join(param, paramMap.get(param)));
+        }
+
+        WebResource resource = client.resource(url + "?" + Joiner.on("&").join(queryParams));
+        String authenticationUrl = resource.getURI().toString();
+        LOG.debug("Authentication URL provided is: {}", authenticationUrl);
+
+        return authenticationUrl;
     }
 
     public void setCode(String code) {
+        LOG.debug("Setting Code: {}", code);
         Map<String, String> params = new HashMap<String, String>();
-        params.put("method", "getTokens");
         params.put("client_id", this.config.getConsumerKey());
         params.put("redirect_uri", this.config.getCallbackUrl());
         params.put("client_secret", this.config.getConsumerSecret());
         params.put("code", code);
         params.put("grant_type", "authorization_code");
 
-        String token_url = config.getBaseUrl() + "/external/oauth.do";
+        String token_url = String.format("%s/oauth/access_token", this.config.getBaseUrl());
 
         List<String> args = new ArrayList<String>();
 
-        String[] headers = new String[] { "method", "client_id", "client_secret", "redirect_uri", "code", "grant_type" };
+        String[] headers = new String[] { "client_id", "client_secret", "redirect_uri", "code", "grant_type" };
 
         for (String key : headers) {
             args.add(Joiner.on("=").join(key, params.get(key)));
