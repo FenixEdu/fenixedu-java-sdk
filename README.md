@@ -17,7 +17,7 @@ Then, to use the API, you should include the following snippet of code:
 	FenixEduClient client = FenixEduClientFactory.getSingleton();
 	String authUrl = client.getAuthenticationUrl();
 
-Redirect the use to the ```authUrl``` and if the user accepts, the url specified in the ```fenixedu.callback.url``` will be called with a query param named ```code``` that you should use and set:
+Redirect the user to the ```authUrl``` and if the user accepts, the url specified in the ```fenixedu.callback.url``` will be called with a query param named ```code``` that you should use and set:
 	
 	FenixEduClient client = FenixEduClientFactory.getSingleton();
 	client.setCode(code);
