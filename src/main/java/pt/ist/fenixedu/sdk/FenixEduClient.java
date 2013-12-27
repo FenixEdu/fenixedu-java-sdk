@@ -13,7 +13,11 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.ist.fenixedu.sdk.models.About;
+import pt.ist.fenixedu.sdk.models.Space;
+
 import com.google.common.base.Joiner;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,6 +34,8 @@ public final class FenixEduClient {
     private final FenixEduConfig config;
 
     private final Client client;
+    
+    private final Gson gson;
 
     FenixEduClient() throws IOException {
         Properties props = new Properties();
@@ -43,7 +49,13 @@ public final class FenixEduClient {
 
         this.client = Client.create();
         this.config = new FenixEduConfig(consumerKey, consumerSecret, accessToken, baseUrl, callbackUrl);
-
+        this.gson = new Gson();
+    }
+    
+    FenixEduClient(FenixEduConfig config) {
+    	this.client = Client.create();
+    	this.config = config;
+    	this.gson = new Gson();
     }
 
     public String getAuthenticationUrl() {
@@ -142,8 +154,10 @@ public final class FenixEduClient {
      * 
      * @return the urls for the university news and events RSS
      */
-    public JsonObject getAbout() {
-        return invoke(publicEndpoint("about"), HttpMethod.GET, JsonObject.class);
+    public About getAbout() {
+        JsonObject json = invoke(publicEndpoint("about"), HttpMethod.GET, JsonObject.class);
+        About about = gson.fromJson(json, About.class);
+        return about;
     }
 
     /**
@@ -298,8 +312,10 @@ public final class FenixEduClient {
      * 
      * @return the array of both campus spaces.
      */
-    public JsonArray getSpaces() {
-        return invoke(publicEndpoint("spaces"), HttpMethod.GET, JsonArray.class);
+    public Space[] getSpaces() {
+        JsonArray json = invoke(publicEndpoint("spaces"), HttpMethod.GET, JsonArray.class);
+        Space[] spaces = gson.fromJson(json, Space[].class);
+        return spaces;
     }
 
     /**
