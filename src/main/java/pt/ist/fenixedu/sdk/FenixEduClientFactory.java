@@ -22,5 +22,12 @@ public class FenixEduClientFactory {
         }
         return INSTANCE;
     }
+    
+    public static FenixEduClient getSingleton(FenixEduConfig config) {
+    	if( INSTANCE == null) {
+    		INSTANCE = new FenixEduClient(config);
+    	}
+    	return INSTANCE;
+    }
 
 }
