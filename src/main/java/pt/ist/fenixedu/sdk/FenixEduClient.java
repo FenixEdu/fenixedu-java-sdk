@@ -14,6 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ist.fenixedu.sdk.models.About;
+import pt.ist.fenixedu.sdk.models.Building;
+import pt.ist.fenixedu.sdk.models.Campus;
+import pt.ist.fenixedu.sdk.models.Floor;
+import pt.ist.fenixedu.sdk.models.Person;
+import pt.ist.fenixedu.sdk.models.Room;
 import pt.ist.fenixedu.sdk.models.Space;
 
 import com.google.common.base.Joiner;
@@ -169,8 +174,12 @@ public final class FenixEduClient {
      * 
      * @return information about the person
      */
-    public JsonObject getPerson() {
-        return invoke(privateEndpoint("person"), HttpMethod.GET, JsonObject.class);
+    public Person getPerson() {
+        JsonObject json = invoke(privateEndpoint("person"), HttpMethod.GET, JsonObject.class);
+        System.out.println(json.toString());
+        
+        Person person = gson.fromJson(json, Person.class);
+        return person;
     }
 
     /**
@@ -330,11 +339,28 @@ public final class FenixEduClient {
      * 
      * @return information regarding the space at a particular day
      */
-    public JsonObject getSpace(String spaceId, String day) {
+    @SuppressWarnings("unchecked")
+	public <T extends Space> T getSpace(String spaceId, String day) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("day", day);
-        return invoke(publicEndpoint("spaces/" + spaceId), HttpMethod.GET, JsonObject.class, params);
+        JsonObject json = invoke(publicEndpoint("spaces/" + spaceId), HttpMethod.GET, JsonObject.class, params);
+        String type = json.get("type").getAsString();
+        
+        if(type.equals("CAMPUS")) {
+        	return (T) gson.fromJson(json, Campus.class);
+        }
+        else if(type.equals("BUILDING")) {
+        	return (T) gson.fromJson(json, Building.class);
+        }
+        else if(type.equals("FLOOR")) {
+        	return (T) gson.fromJson(json, Floor.class);
+        }
+        else if(type.equals("ROOM")) {
+        	return (T) gson.fromJson(json, Room.class);
+        }
+		return null;
     }
+
 
     /**
      * Obtains the degrees associated to a particular execution year
