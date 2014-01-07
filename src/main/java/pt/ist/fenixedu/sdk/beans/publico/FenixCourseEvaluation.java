@@ -2,8 +2,10 @@ package pt.ist.fenixedu.sdk.beans.publico;
 
 import java.util.List;
 
-
 public abstract class FenixCourseEvaluation {
+
+    public FenixCourseEvaluation() {
+    }
 
     public FenixCourseEvaluation(String name) {
         super();
@@ -58,8 +60,8 @@ public abstract class FenixCourseEvaluation {
 
         List<Room> rooms;
 
-        public WrittenEvaluation(String name,String day, String beginningTime, String endTime,
-                Boolean isInEnrolmentPeriod, String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
+        public WrittenEvaluation(String name, String day, String beginningTime, String endTime, Boolean isInEnrolmentPeriod,
+                String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
             super(name);
             this.day = day;
             this.beginningTime = beginningTime;
@@ -119,28 +121,23 @@ public abstract class FenixCourseEvaluation {
 
     }
 
-    
     public static class Test extends WrittenEvaluation {
 
-		public Test(String name, String day, String beginningTime,
-				String endTime, Boolean isEnrolmentPeriod,
-				String enrollmentPeriodStart, String enrolmentPeriodEnd,
-				List<Room> rooms) {
-			super(name, day, beginningTime, endTime, isEnrolmentPeriod, enrollmentPeriodStart, enrolmentPeriodEnd, rooms);
-		}
+        public Test(String name, String day, String beginningTime, String endTime, Boolean isEnrolmentPeriod,
+                String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
+            super(name, day, beginningTime, endTime, isEnrolmentPeriod, enrollmentPeriodStart, enrolmentPeriodEnd, rooms);
+        }
     }
-    
+
     public static class Exam extends WrittenEvaluation {
 
-		public Exam(String name, String day, String beginningTime,
-				String endTime, Boolean isEnrolmentPeriod,
-				String enrollmentPeriodStart, String enrolmentPeriodEnd,
-				List<Room> rooms) {
-			super(name, day, beginningTime, endTime, isEnrolmentPeriod, enrollmentPeriodStart, enrolmentPeriodEnd, rooms);
-		}
-    	
+        public Exam(String name, String day, String beginningTime, String endTime, Boolean isEnrolmentPeriod,
+                String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
+            super(name, day, beginningTime, endTime, isEnrolmentPeriod, enrollmentPeriodStart, enrolmentPeriodEnd, rooms);
+        }
+
     }
-    
+
     public static class Project extends FenixCourseEvaluation {
 
         private String beginningDay;
@@ -229,6 +226,5 @@ public abstract class FenixCourseEvaluation {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }
