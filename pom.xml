@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.com.sun.jersey.jersey.client>1.17.1</version.com.sun.jersey.jersey.client>
 		<version.com.google.guava.guava>14.0.1</version.com.google.guava.guava>
 		<version.com.google.code.gson.gson>2.2.4</version.com.google.code.gson.gson>
@@ -36,6 +36,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${version.org.slf4j.slf4j.api}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
