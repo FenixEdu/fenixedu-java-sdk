@@ -1,13 +1,9 @@
 package pt.ist.fenixedu.sdk.tests;
 
-import pt.ist.fenixedu.sdk.FenixEduClient;
-import pt.ist.fenixedu.sdk.FenixEduClientFactory;
 import pt.ist.fenixedu.sdk.beans.FenixPerson;
 import pt.ist.fenixedu.sdk.beans.FenixPerson.FenixRole;
-import junit.framework.TestCase;
 
-public class PersonTest extends TestCase {
-	FenixEduClient client;
+public class PersonTest extends FenixEduTestCase {
 
 	public PersonTest() {
 	}
@@ -16,14 +12,8 @@ public class PersonTest extends TestCase {
 		super(name);
 	}
 	
-	public void setUp() {
-		client = FenixEduClientFactory.getSingleton();
-	}
-	
 	public void testNotNull() {
-		assertNotNull("Access token is null", client.getConfig().getAccessToken());
-		
-		FenixPerson person = client.getPerson();
+		FenixPerson person = getClient().getPerson();
 		
 		assertNotNull("Campus is null", person.getCampus());
 		assertNotNull("Email is null", person.getEmail());

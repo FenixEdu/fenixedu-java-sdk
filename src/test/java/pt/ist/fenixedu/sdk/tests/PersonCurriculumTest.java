@@ -1,13 +1,9 @@
 package pt.ist.fenixedu.sdk.tests;
 
-import pt.ist.fenixedu.sdk.FenixEduClient;
-import pt.ist.fenixedu.sdk.FenixEduClientFactory;
 import pt.ist.fenixedu.sdk.beans.FenixCurriculum;
 import pt.ist.fenixedu.sdk.beans.FenixCurriculum.FenixCourseInfo;
-import junit.framework.TestCase;
 
-public class PersonCurriculumTest extends TestCase {
-	FenixEduClient client;
+public class PersonCurriculumTest extends FenixEduTestCase {
 
 	public PersonCurriculumTest() {
 	}
@@ -16,12 +12,8 @@ public class PersonCurriculumTest extends TestCase {
 		super(name);
 	}
 
-	public void setUp() {
-		client = FenixEduClientFactory.getSingleton();
-	}
-	
 	public void testNotNull() {
-		FenixCurriculum[] curriculum = client.getPersonCurriculum();
+		FenixCurriculum[] curriculum = getClient().getPersonCurriculum();
 		
 		assertNotNull("Curriculum is null", curriculum);
 		
