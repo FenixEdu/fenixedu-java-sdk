@@ -400,8 +400,8 @@ public final class FenixEduClient {
      */
     public FenixCourseEvaluation[] getCourseEvaluations(String courseId) {
         JsonArray json = invoke(publicEndpoint("courses/" + courseId + "/evaluations"), HttpMethod.GET, JsonArray.class);
-        FenixCourseEvaluation[] evaluation = gson.fromJson(json, FenixCourseEvaluation[].class);
-        return evaluation;
+        FenixCourseEvaluation[] evaluations = gson.fromJson(json, FenixCourseEvaluation[].class);
+        return evaluations;
     }
 
     /**
