@@ -22,6 +22,10 @@ import pt.ist.fenixedu.sdk.beans.FenixPersonCourses;
 import pt.ist.fenixedu.sdk.beans.publico.FenixAbout;
 import pt.ist.fenixedu.sdk.beans.publico.FenixCourse;
 import pt.ist.fenixedu.sdk.beans.publico.FenixCourseEvaluation;
+import pt.ist.fenixedu.sdk.beans.publico.FenixCourseGroup;
+import pt.ist.fenixedu.sdk.beans.publico.FenixCourseStudents;
+import pt.ist.fenixedu.sdk.beans.publico.FenixDegree;
+import pt.ist.fenixedu.sdk.beans.publico.FenixSchedule;
 import pt.ist.fenixedu.sdk.models.Building;
 import pt.ist.fenixedu.sdk.models.Campus;
 import pt.ist.fenixedu.sdk.models.Floor;
@@ -410,8 +414,10 @@ public final class FenixEduClient {
      * @param courseId the id of the course to retrieve the groups information from
      * @return information about course groups
      */
-    public JsonObject getCourseGroups(String courseId) {
-        return invoke(publicEndpoint("courses/" + courseId + "/groups"), HttpMethod.GET, JsonObject.class);
+    public FenixCourseGroup[] getCourseGroups(String courseId) {
+        JsonArray json = invoke(publicEndpoint("courses/" + courseId + "/groups"), HttpMethod.GET, JsonArray.class);
+        FenixCourseGroup[] groups = gson.fromJson(json, FenixCourseGroup[].class);
+        return groups;
     }
 
     /**
@@ -424,8 +430,10 @@ public final class FenixEduClient {
      * @param courseId the id of the course to obtain the schedule information from
      * @return information about the course schedule
      */
-    public JsonObject getCourseSchedule(String courseId) {
-        return invoke(publicEndpoint("courses/" + courseId + "/schedule"), HttpMethod.GET, JsonObject.class);
+    public FenixSchedule getCourseSchedule(String courseId) {
+        JsonObject json = invoke(publicEndpoint("courses/" + courseId + "/schedule"), HttpMethod.GET, JsonObject.class);
+        FenixSchedule schedule = gson.fromJson(json, FenixSchedule.class);
+        return schedule;
     }
 
     /**
@@ -434,8 +442,10 @@ public final class FenixEduClient {
      * @param courseId the id of the course to obtain the student list
      * @return the list of course students
      */
-    public JsonObject getCourseStudents(String courseId) {
-        return invoke(publicEndpoint("courses/" + courseId + "/students"), HttpMethod.GET, JsonObject.class);
+    public FenixCourseStudents getCourseStudents(String courseId) {
+        JsonObject json = invoke(publicEndpoint("courses/" + courseId + "/students"), HttpMethod.GET, JsonObject.class);
+        FenixCourseStudents students = gson.fromJson(json, FenixCourseStudents.class);
+        return students;
     }
 
     /**
@@ -485,10 +495,12 @@ public final class FenixEduClient {
      *            retrieve the courses from (e.g. 2003/2004)
      * @return a JsonArray describing the courses
      */
-    public JsonArray getDegrees(String year) {
+    public FenixDegree[] getDegrees(String year) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("year", year);
-        return invoke(publicEndpoint("degrees"), HttpMethod.GET, JsonArray.class, params);
+        JsonArray json = invoke(publicEndpoint("degrees"), HttpMethod.GET, JsonArray.class, params);
+        FenixDegree[] degrees = gson.fromJson(json, FenixDegree[].class);
+        return degrees;
     }
 
     /**
@@ -503,10 +515,12 @@ public final class FenixEduClient {
      * @param year the execution year to retrieve the information of the degree
      * @return the degree
      */
-    public JsonObject getDegree(String degreeId, String year) {
+    public FenixDegree getDegree(String degreeId, String year) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("year", year);
-        return invoke(publicEndpoint("degrees/" + degreeId), HttpMethod.GET, JsonObject.class, params);
+        JsonObject json = invoke(publicEndpoint("degrees/" + degreeId), HttpMethod.GET, JsonObject.class, params);
+        FenixDegree degree = gson.fromJson(json, FenixDegree.class);
+        return degree;
     }
 
     /**
