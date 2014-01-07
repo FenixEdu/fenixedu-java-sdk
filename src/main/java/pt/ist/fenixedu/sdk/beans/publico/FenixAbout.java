@@ -5,6 +5,9 @@ public class FenixAbout {
     public static class FenixRSSFeed {
         String description;
         String uri;
+        
+        public FenixRSSFeed() {
+        }
 
         public FenixRSSFeed(final String description, final String uri) {
             this.description = description;

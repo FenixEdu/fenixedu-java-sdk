@@ -8,6 +8,9 @@ public class FenixPerson {
     public static class FenixPhoto {
         private String type;
         private String data;
+        
+        public FenixPhoto() {
+        }
 
         public FenixPhoto(String type, String data) {
             super();
@@ -37,7 +40,9 @@ public class FenixPerson {
         TEACHER, ALUMNI, STUDENT;
     }
 
-    public static abstract class FenixRole {
+    public static class FenixRole {
+    	public FenixRole() {
+    	}
 
     }
 
@@ -62,6 +67,9 @@ public class FenixPerson {
     public static class StudentFenixRole extends FenixRole {
 
         private List<String> degrees;
+        
+        public StudentFenixRole() {
+        }
 
         public StudentFenixRole(List<String> degrees) {
             this.degrees = degrees;
@@ -96,6 +104,9 @@ public class FenixPerson {
     private List<String> workEmails;
     private List<String> webAddresses;
     private List<String> workWebAddresses;
+    
+    public FenixPerson() {
+    }
 
     public FenixPerson(String campus, Set<FenixRole> roles, FenixPhoto photo, String name, String istId, String email,
             List<String> personalEmails, List<String> workEmails, List<String> webAddresses, List<String> workWebAddresses) {
