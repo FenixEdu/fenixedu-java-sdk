@@ -13,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.ist.fenixedu.sdk.beans.FenixCurriculum;
+import pt.ist.fenixedu.sdk.beans.FenixPerson;
+import pt.ist.fenixedu.sdk.beans.publico.FenixAbout;
 import pt.ist.fenixedu.sdk.models.About;
 import pt.ist.fenixedu.sdk.models.Building;
 import pt.ist.fenixedu.sdk.models.Campus;
@@ -153,7 +156,7 @@ public final class FenixEduClient {
     private <T extends JsonElement> T invokePrivate(String endpoint, String httpMethod, Class<T> clazz) {
     	Map<String, String> queryParams = new HashMap<String, String>();
     	queryParams.put("access_token", config.getAccessToken());
-    	return invoke(endpoint, httpMethod, clazz);
+    	return invoke(endpoint, httpMethod, clazz, queryParams);
     }
     
     /**
@@ -251,9 +254,9 @@ public final class FenixEduClient {
      * 
      * @return the urls for the university news and events RSS
      */
-    public About getAbout() {
+    public FenixAbout getAbout() {
         JsonObject json = invoke(publicEndpoint("about"), HttpMethod.GET, JsonObject.class);
-        About about = gson.fromJson(json, About.class);
+        FenixAbout about = gson.fromJson(json, FenixAbout.class);
         return about;
     }
 
@@ -266,11 +269,11 @@ public final class FenixEduClient {
      * 
      * @return information about the person
      */
-    public Person getPerson() {
+    public FenixPerson getPerson() {
         JsonObject json = invokePrivate(privateEndpoint("person"), HttpMethod.GET, JsonObject.class);
         System.out.println(json.toString());
         
-        Person person = gson.fromJson(json, Person.class);
+        FenixPerson person = gson.fromJson(json, FenixPerson.class);
         return person;
     }
 
@@ -279,8 +282,10 @@ public final class FenixEduClient {
      * 
      * @return information about the person curriculum
      */
-    public JsonArray getPersonCurriculum() {
-        return invokePrivate(privateEndpoint("person/curriculum"), HttpMethod.GET, JsonArray.class);
+    public FenixCurriculum[] getPersonCurriculum() {
+        JsonArray json = invokePrivate(privateEndpoint("person/curriculum"), HttpMethod.GET, JsonArray.class);
+        FenixCurriculum[] list = gson.fromJson(json, FenixCurriculum[].class);
+        return list;
     }
 
     /**
