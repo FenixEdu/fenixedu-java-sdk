@@ -407,16 +407,14 @@ public final class FenixEduClient {
             String type = jsonObject.get("type").getAsString();
             if (type.equals("TEST")) {
                 list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Test.class));
-            } else if (type.equals("")) {
+            } else if (type.equals("AD_HOC")) {
                 list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.AdHocEvaluation.class));
-            } else if (type.equals("")) {
+            } else if (type.equals("EXAM")) {
                 list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Exam.class));
-            } else if (type.equals("")) {
+            } else if (type.equals("ONLINE_TEST")) {
                 list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.OnlineTest.class));
-            } else if (type.equals("")) {
+            } else if (type.equals("PROJECT")) {
                 list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Project.class));
-            } else if (type.equals("")) {
-                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.WrittenEvaluation.class));
             }
         }
 
