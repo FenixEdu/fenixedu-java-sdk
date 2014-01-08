@@ -23,7 +23,7 @@ public class SpaceTest extends FenixEduTestCase {
 
         assertNotNull(getClient().getSpace(floorId, day, FenixSpace.Floor.class));
 
-        assertNotNull(getClient().getSpace(roomId, day, FenixSpace.Floor.class));
+        assertNotNull(getClient().getSpace(roomId, day, FenixSpace.Room.class));
     }
 
     public void assertNotNull(FenixSpace.Campus campus) {
@@ -50,7 +50,7 @@ public class SpaceTest extends FenixEduTestCase {
         assertNotNull("Floor name is null", floor.getName());
         assertNotNull("Floor id is null", floor.getId());
         assertNotNull("Floor type is null", floor.getType());
-        //assertNotNull("Floor contained spaces is null", floor.getContainedSpaces());
+        assertNotNull("Floor contained spaces is null", floor.getContainedSpaces());
         assertNotNull("Floor parent space is null", floor.getParentSpace());
     }
 
@@ -58,7 +58,7 @@ public class SpaceTest extends FenixEduTestCase {
         assertNotNull("Room name is null", room.getName());
         assertNotNull("Room id is null", room.getId());
         assertNotNull("Room type is null", room.getType());
-        assertNotNull("Room contained spaces is null", room.getContainedSpaces());
+        //assertNotNull("Room contained spaces is null", room.getContainedSpaces());
         assertNotNull("Room parent space is null", room.getParentSpace());
         assertNotNull("Room Exam Capacity is null", room.getExamCapacity());
         assertNotNull("Room Normal capacity is null", room.getNormalCapacity());
