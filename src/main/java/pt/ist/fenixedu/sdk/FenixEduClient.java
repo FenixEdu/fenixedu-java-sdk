@@ -398,15 +398,30 @@ public final class FenixEduClient {
      * @param courseId the id of the course to retrieve the course evaluations
      * @return information about the courses evaluations of the given id
      */
-    public FenixCourseEvaluation[] getCourseEvaluations(String courseId) {
+    public List<FenixCourseEvaluation> getCourseEvaluations(String courseId) {
         JsonArray json = invoke(publicEndpoint("courses/" + courseId + "/evaluations"), HttpMethod.GET, JsonArray.class);
-        
-        //Because exists a lot of evaluation types
-        FenixCourseEvaluation[] evaluations = new FenixCourseEvaluation[json.size()];
-        
-       
-        //FenixCourseEvaluation[] evaluations = gson.fromJson(json, FenixCourseEvaluation[].class);
-        return evaluations;
+        List<FenixCourseEvaluation> list = new ArrayList<FenixCourseEvaluation>();
+
+        for (JsonElement jsonElement : json) {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            String type = jsonObject.get("type").getAsString();
+            if (type.equals("TEST")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Test.class));
+            } else if (type.equals("")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.AdHocEvaluation.class));
+            } else if (type.equals("")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Exam.class));
+            } else if (type.equals("")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.OnlineTest.class));
+            } else if (type.equals("")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.Project.class));
+            } else if (type.equals("")) {
+                list.add(gson.fromJson(jsonObject, FenixCourseEvaluation.WrittenEvaluation.class));
+            }
+        }
+
+        return list;
+
     }
 
     /**
@@ -463,13 +478,13 @@ public final class FenixEduClient {
     /**
      * Obtains space information regarding space type (Campus, Building, Floor
      * or Room).
-     *
+     * 
      * @param <T> the generic type
      * @param spaceId the id of the space
      * @param day the day for which the events should be listed for that room
-     * (e.g. "dd/mm/yyyy")
+     *            (e.g. "dd/mm/yyyy")
      * @param clazz the class of return type. Must extend FenixSpace
-     * (e.g. FenixSpace.Campus.class)
+     *            (e.g. FenixSpace.Campus.class)
      * @return information regarding the space at a particular day
      */
     public <T extends FenixSpace> T getSpace(String spaceId, String day, Class<T> clazz) {
@@ -532,7 +547,7 @@ public final class FenixEduClient {
         params.put("year", year);
         JsonArray json = invoke(publicEndpoint("degrees/" + degreeId + "/courses"), HttpMethod.GET, JsonArray.class);
         FenixExecutionCourse[] degreeCourses = gson.fromJson(json, FenixExecutionCourse[].class);
-        
+
         return degreeCourses;
     }
 
