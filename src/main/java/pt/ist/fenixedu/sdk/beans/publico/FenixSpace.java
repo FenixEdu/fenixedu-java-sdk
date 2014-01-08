@@ -6,6 +6,10 @@ import java.util.List;
 public class FenixSpace {
 
     public static class Campus extends FenixSpace {
+    	
+    	public Campus() {
+    	}
+    	
         public Campus(String id, String name) {
             super(id, name, "CAMPUS");
         }
@@ -27,6 +31,10 @@ public class FenixSpace {
     }
 
     public static class Floor extends FenixSpace {
+    	
+    	public Floor() {
+    	}
+    	
         public Floor(String id, String name) {
             super(id, name, "FLOOR");
         }
@@ -39,11 +47,14 @@ public class FenixSpace {
 
     public static class Room extends FenixSpace {
     	
-    	public static abstract class RoomEvent {
+    	public static class RoomEvent {
 
             public static class LessonEvent extends RoomEvent {
                 private String info;
                 private WrittenEvaluationEvent.ExecutionCourse course;
+                
+                public LessonEvent() {
+                }
 
                 public LessonEvent(String start, String end, String weekday, String info,
                         WrittenEvaluationEvent.ExecutionCourse course) {
@@ -70,6 +81,9 @@ public class FenixSpace {
             }
 
             public static abstract class WrittenEvaluationEvent extends RoomEvent {
+            	
+            	public WrittenEvaluationEvent() {
+            	}
 
                 public static class ExecutionCourse {
                     private String acronym;
@@ -111,6 +125,9 @@ public class FenixSpace {
                 public static class TestEvent extends WrittenEvaluationEvent {
                     private String description;
 
+                    public TestEvent() {
+                    }
+                    
                     public TestEvent(String start, String end, String weekday, List<ExecutionCourse> courses, String description) {
                         super(start, end, weekday, courses);
                         this.description = description;
@@ -128,6 +145,9 @@ public class FenixSpace {
                 public static class ExamEvent extends WrittenEvaluationEvent {
                     private Integer season;
 
+                    public ExamEvent() {
+                    }
+                    
                     public ExamEvent(String start, String end, String weekday, List<ExecutionCourse> courses, Integer season) {
                         super(start, end, weekday, courses);
                         this.season = season;
@@ -164,6 +184,9 @@ public class FenixSpace {
                 private String description;
                 private String title;
 
+                public GenericEvent() {
+                }
+                
                 public GenericEvent(String start, String end, String weekday, String description, String title) {
                     super(start, end, weekday);
                     this.description = description;
@@ -190,6 +213,9 @@ public class FenixSpace {
             private String start;
             private String end;
             private String weekday;
+            
+            public RoomEvent() {
+            }
 
             public RoomEvent(String start, String end, String weekday) {
                 super();
@@ -283,6 +309,9 @@ public class FenixSpace {
     private String type;
     private List<FenixSpace> containedSpaces;
     private FenixSpace parentSpace;
+    
+    public FenixSpace() {
+    }
 
     public FenixSpace(String id, String name, String type) {
         this.id = id;

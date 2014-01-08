@@ -2,7 +2,7 @@ package pt.ist.fenixedu.sdk.beans.publico;
 
 import java.util.List;
 
-public abstract class FenixCourseEvaluation {
+public class FenixCourseEvaluation {
 
     public FenixCourseEvaluation() {
     }
@@ -18,6 +18,9 @@ public abstract class FenixCourseEvaluation {
             private String id;
             private String name;
             private String description;
+            
+            public Room() {
+            }
 
             public Room(String id, String name, String description) {
                 super();
@@ -59,6 +62,9 @@ public abstract class FenixCourseEvaluation {
         private FenixInterval enrollmentPeriod;
 
         List<Room> rooms;
+        
+        public WrittenEvaluation() {
+        }
 
         public WrittenEvaluation(String name, String day, String beginningTime, String endTime, Boolean isInEnrolmentPeriod,
                 String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
@@ -123,13 +129,19 @@ public abstract class FenixCourseEvaluation {
 
     public static class Test extends WrittenEvaluation {
 
-        public Test(String name, String day, String beginningTime, String endTime, Boolean isEnrolmentPeriod,
+    	public Test() {
+    	}
+
+    	public Test(String name, String day, String beginningTime, String endTime, Boolean isEnrolmentPeriod,
                 String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
             super(name, day, beginningTime, endTime, isEnrolmentPeriod, enrollmentPeriodStart, enrolmentPeriodEnd, rooms);
         }
     }
 
     public static class Exam extends WrittenEvaluation {
+
+        public Exam() {
+        }
 
         public Exam(String name, String day, String beginningTime, String endTime, Boolean isEnrolmentPeriod,
                 String enrollmentPeriodStart, String enrolmentPeriodEnd, List<Room> rooms) {
@@ -145,6 +157,9 @@ public abstract class FenixCourseEvaluation {
         private String endDay;
         private String endTime;
 
+        public Project() {
+        }
+        
         private Project(String name) {
             super(name);
         }
@@ -193,7 +208,10 @@ public abstract class FenixCourseEvaluation {
 
     public static class OnlineTest extends FenixCourseEvaluation {
 
-        public OnlineTest(String name) {
+    	public OnlineTest() {
+    	}
+    	
+    	public OnlineTest(String name) {
             super(name);
         }
 
@@ -202,6 +220,9 @@ public abstract class FenixCourseEvaluation {
     public static class AdHocEvaluation extends FenixCourseEvaluation {
         private String description;
 
+        public AdHocEvaluation() {
+        }
+        
         public AdHocEvaluation(String name, String description) {
             super(name);
             this.description = description;
