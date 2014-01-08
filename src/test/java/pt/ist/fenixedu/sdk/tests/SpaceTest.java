@@ -17,9 +17,9 @@ public class SpaceTest extends FenixEduTestCase {
 	}
 
 	public void testNotNull() {
-		 assertNotNull(getClient().getSpace(campusId, day));
+		 assertNotNull(getClient().getSpace(campusId, day, FenixSpace.Campus.class));
 		 
-		 assertNotNull(getClient().getSpace(buildingId, day));
+		 assertNotNull(getClient().getSpace(buildingId, day, FenixSpace.Building.class));
 	}
 	
 	public void assertNotNull(FenixSpace.Campus campus) {
