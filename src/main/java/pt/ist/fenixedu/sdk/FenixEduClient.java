@@ -25,12 +25,9 @@ import pt.ist.fenixedu.sdk.beans.publico.FenixCourseEvaluation;
 import pt.ist.fenixedu.sdk.beans.publico.FenixCourseGroup;
 import pt.ist.fenixedu.sdk.beans.publico.FenixCourseStudents;
 import pt.ist.fenixedu.sdk.beans.publico.FenixDegree;
+import pt.ist.fenixedu.sdk.beans.publico.FenixExecutionCourse;
 import pt.ist.fenixedu.sdk.beans.publico.FenixSchedule;
-import pt.ist.fenixedu.sdk.models.Building;
-import pt.ist.fenixedu.sdk.models.Campus;
-import pt.ist.fenixedu.sdk.models.Floor;
-import pt.ist.fenixedu.sdk.models.Room;
-import pt.ist.fenixedu.sdk.models.Space;
+import pt.ist.fenixedu.sdk.beans.publico.FenixSpace;
 
 import com.google.common.base.Joiner;
 import com.google.gson.Gson;
@@ -41,7 +38,6 @@ import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class FenixEduClient.
  */
@@ -404,7 +400,12 @@ public final class FenixEduClient {
      */
     public FenixCourseEvaluation[] getCourseEvaluations(String courseId) {
         JsonArray json = invoke(publicEndpoint("courses/" + courseId + "/evaluations"), HttpMethod.GET, JsonArray.class);
-        FenixCourseEvaluation[] evaluations = gson.fromJson(json, FenixCourseEvaluation[].class);
+        
+        //Because exists a lot of evaluation types
+        FenixCourseEvaluation[] evaluations = new FenixCourseEvaluation[json.size()];
+        
+       
+        //FenixCourseEvaluation[] evaluations = gson.fromJson(json, FenixCourseEvaluation[].class);
         return evaluations;
     }
 
@@ -453,39 +454,31 @@ public final class FenixEduClient {
      * 
      * @return the array of both campus spaces.
      */
-    public Space[] getSpaces() {
+    public FenixSpace[] getSpaces() {
         JsonArray json = invoke(publicEndpoint("spaces"), HttpMethod.GET, JsonArray.class);
-        Space[] spaces = gson.fromJson(json, Space[].class);
+        FenixSpace[] spaces = gson.fromJson(json, FenixSpace[].class);
         return spaces;
     }
 
     /**
      * Obtains space information regarding space type (Campus, Building, Floor
      * or Room).
-     * 
+     *
      * @param <T> the generic type
      * @param spaceId the id of the space
      * @param day the day for which the events should be listed for that room
-     *            (e.g. "dd/mm/yyyy")
+     * (e.g. "dd/mm/yyyy")
+     * @param clazz the class of return type. Must extend FenixSpace
+     * (e.g. FenixSpace.Campus.class)
      * @return information regarding the space at a particular day
      */
-    @SuppressWarnings("unchecked")
-    public <T extends Space> T getSpace(String spaceId, String day) {
+    public <T extends FenixSpace> T getSpace(String spaceId, String day, Class<T> clazz) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("day", day);
         JsonObject json = invoke(publicEndpoint("spaces/" + spaceId), HttpMethod.GET, JsonObject.class, params);
-        String type = json.get("type").getAsString();
 
-        if (type.equals("CAMPUS")) {
-            return (T) gson.fromJson(json, Campus.class);
-        } else if (type.equals("BUILDING")) {
-            return (T) gson.fromJson(json, Building.class);
-        } else if (type.equals("FLOOR")) {
-            return (T) gson.fromJson(json, Floor.class);
-        } else if (type.equals("ROOM")) {
-            return (T) gson.fromJson(json, Room.class);
-        }
-        return null;
+        T space = gson.fromJson(json, clazz);
+        return space;
     }
 
     /**
@@ -534,10 +527,13 @@ public final class FenixEduClient {
      * @param year the execution year (e.g. 2010/2011)
      * @return the degree courses
      */
-    public JsonObject getDegreeCourses(String degreeId, String year) {
+    public FenixExecutionCourse[] getDegreeCourses(String degreeId, String year) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("year", year);
-        return invoke(publicEndpoint("degrees/" + degreeId), HttpMethod.GET, JsonObject.class);
+        JsonArray json = invoke(publicEndpoint("degrees/" + degreeId + "/courses"), HttpMethod.GET, JsonArray.class);
+        FenixExecutionCourse[] degreeCourses = gson.fromJson(json, FenixExecutionCourse[].class);
+        
+        return degreeCourses;
     }
 
     /**
