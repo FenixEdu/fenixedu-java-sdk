@@ -41,7 +41,7 @@ import com.sun.jersey.api.client.WebResource;
 /**
  * The Class FenixEduClient.
  */
-public final class FenixEduClient {
+public class FenixEduClient {
 
     /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FenixEduClient.class);
@@ -203,9 +203,8 @@ public final class FenixEduClient {
      * @param queryParams the query params
      * @return the t
      */
-    @SuppressWarnings("unchecked")
-    private <T extends JsonElement> T invoke(String endpoint, String httpMethod, Class<T> clazz, Map<String, String> queryParams) {
-        WebResource webResource = client.resource(config.getBaseUrl() + endpoint);
+    protected <T extends JsonElement> T invoke(String endpoint, String httpMethod, Class<T> clazz, Map<String, String> queryParams) {
+    	WebResource webResource = getClient().resource(getConfig().getBaseUrl() + endpoint);
         if (queryParams != null) {
             for (String key : queryParams.keySet()) {
                 webResource = webResource.queryParam(key, queryParams.get(key));
@@ -580,4 +579,10 @@ public final class FenixEduClient {
     public FenixEduConfig getConfig() {
         return config;
     }
+
+	public Client getClient() {
+		return client;
+	}
+    
+    
 }

@@ -17,6 +17,15 @@ public class SpaceTest extends FenixEduTestCase {
     }
 
     public void testNotNull() {
+    	FenixSpace[] spaces = getClient().getSpaces();
+    	assertNotNull("Spaces array is null", spaces);
+    	
+    	for(FenixSpace space : spaces) {
+    		assertNotNull("Space id in space array is null", space.getId());
+    		assertNotNull("Space name in space array is null", space.getName());
+    		assertNotNull("Space type in space array is null", space.getType());
+    	}
+    	
         assertNotNull(getClient().getSpace(campusId, day, FenixSpace.Campus.class));
 
         assertNotNull(getClient().getSpace(buildingId, day, FenixSpace.Building.class));
