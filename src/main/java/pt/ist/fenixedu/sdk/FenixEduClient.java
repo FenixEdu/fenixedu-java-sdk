@@ -203,7 +203,8 @@ public class FenixEduClient {
      * @param queryParams the query params
      * @return the t
      */
-    protected <T extends JsonElement> T invoke(String endpoint, String httpMethod, Class<T> clazz, Map<String, String> queryParams) {
+    @SuppressWarnings("unchecked")
+	protected <T extends JsonElement> T invoke(String endpoint, String httpMethod, Class<T> clazz, Map<String, String> queryParams) {
     	WebResource webResource = getClient().resource(getConfig().getBaseUrl() + endpoint);
         if (queryParams != null) {
             for (String key : queryParams.keySet()) {
