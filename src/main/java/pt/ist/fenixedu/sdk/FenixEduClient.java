@@ -25,8 +25,6 @@ public final class FenixEduClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(FenixEduClient.class);
 
-    private static final String DEFAULT_BASE_URL = "https://fenix.ist.utl.pt";
-
     private final FenixEduConfig config;
 
     private final Client client;
@@ -37,7 +35,7 @@ public final class FenixEduClient {
         String consumerKey = props.getProperty(FenixEduConfig.CONSUMER_KEY);
         String consumerSecret = props.getProperty(FenixEduConfig.CONSUMER_SECRET);
         String callbackUrl = props.getProperty(FenixEduConfig.CALLBACK_URL, null);
-        String baseUrl = props.getProperty(FenixEduConfig.BASE_URL, DEFAULT_BASE_URL);
+        String baseUrl = props.getProperty(FenixEduConfig.BASE_URL);
 
         String accessToken = props.getProperty(FenixEduConfig.ACCESS_TOKEN, null);
 
