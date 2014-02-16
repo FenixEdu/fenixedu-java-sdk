@@ -4,14 +4,14 @@ public class FenixAbout {
 
     public static class FenixRSSFeed {
         String description;
-        String uri;
+        String url;
         
         public FenixRSSFeed() {
         }
 
         public FenixRSSFeed(final String description, final String uri) {
             this.description = description;
-            this.uri = uri;
+            this.url = uri;
         }
 
         public String getDescription() {
@@ -22,12 +22,12 @@ public class FenixAbout {
             this.description = description;
         }
 
-        public String getUri() {
-            return uri;
+        public String getUrl() {
+            return url;
         }
 
         public void setUri(String uri) {
-            this.uri = uri;
+            this.url = uri;
         }
     }
 

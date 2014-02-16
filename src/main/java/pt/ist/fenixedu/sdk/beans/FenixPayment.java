@@ -5,15 +5,14 @@ import java.util.List;
 public class FenixPayment {
 
     public static class PaymentEvent {
-        String amount;
-        String name;
-        String description;
-        String date;
+        private String amount;
+        private String description;
+        private String date;
+        private String type;
 
-        public PaymentEvent(String amount, String name, String description, String date) {
+        public PaymentEvent(String amount, String description, String date) {
             super();
             this.amount = amount;
-            this.name = name;
             this.description = description;
             this.date = date;
         }
@@ -24,14 +23,6 @@ public class FenixPayment {
 
         public void setAmount(String amount) {
             this.amount = amount;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public String getDescription() {
@@ -50,21 +41,51 @@ public class FenixPayment {
             this.date = date;
         }
 
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+        
     }
 
     public static class NotPayedEvent {
-        String description;
-        String startDate;
-        String endDate;
-        String entity;
-        String reference;
-        String amount;
+    	private String description;
+    	private PaymentPeriod paymentPeriod;
+    	private String entity;
+    	private String reference;
+    	private String amount;
+        
+        public static class PaymentPeriod {
+        	private String start;
+        	private String end;
+        	
+        	public PaymentPeriod() {
+        	}
 
-        public NotPayedEvent(String description, String startDate, String endDate, String entity, String reference, String amount) {
+			public String getStart() {
+				return start;
+			}
+
+			public void setStart(String start) {
+				this.start = start;
+			}
+
+			public String getEnd() {
+				return end;
+			}
+
+			public void setEnd(String end) {
+				this.end = end;
+			}
+        }
+
+        public NotPayedEvent(String description, PaymentPeriod paymentPeriod, String entity, String reference, String amount) {
             super();
             this.description = description;
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.paymentPeriod = paymentPeriod;
             this.entity = entity;
             this.reference = reference;
             this.amount = amount;
@@ -78,23 +99,15 @@ public class FenixPayment {
             this.description = description;
         }
 
-        public String getStartDate() {
-            return startDate;
-        }
+        public PaymentPeriod getPaymentPeriod() {
+			return paymentPeriod;
+		}
 
-        public void setStartDate(String startDate) {
-            this.startDate = startDate;
-        }
+		public void setPaymentPeriod(PaymentPeriod paymentPeriod) {
+			this.paymentPeriod = paymentPeriod;
+		}
 
-        public String getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(String endDate) {
-            this.endDate = endDate;
-        }
-
-        public String getEntity() {
+		public String getEntity() {
             return entity;
         }
 
@@ -120,29 +133,29 @@ public class FenixPayment {
 
     }
 
-    private List<PaymentEvent> payed;
-    private List<NotPayedEvent> notPayed;
+    private List<PaymentEvent> completed;
+    private List<NotPayedEvent> pending;
 
-    public FenixPayment(List<PaymentEvent> payed, List<NotPayedEvent> notPayed) {
+    public FenixPayment(List<PaymentEvent> completed, List<NotPayedEvent> pending) {
         super();
-        this.payed = payed;
-        this.notPayed = notPayed;
+        this.completed = completed;
+        this.pending = pending;
     }
 
-    public List<PaymentEvent> getPayed() {
-        return payed;
+    public List<PaymentEvent> getCompleted() {
+        return completed;
     }
 
-    public void setPayed(List<PaymentEvent> payed) {
-        this.payed = payed;
+    public void setPayed(List<PaymentEvent> completed) {
+        this.completed = completed;
     }
 
-    public List<NotPayedEvent> getNotPayed() {
-        return notPayed;
+    public List<NotPayedEvent> getPending() {
+        return pending;
     }
 
-    public void setNotPayed(List<NotPayedEvent> notPayed) {
-        this.notPayed = notPayed;
+    public void setNotPayed(List<NotPayedEvent> pending) {
+        this.pending = pending;
     }
 
 }

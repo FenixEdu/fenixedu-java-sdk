@@ -17,7 +17,7 @@ public class PersonTest extends FenixEduTestCase {
 		
 		assertNotNull("Campus is null", person.getCampus());
 		assertNotNull("Email is null", person.getEmail());
-		assertNotNull("ist id is null", person.getIstId());
+		assertNotNull("username is null", person.getUsername());
 		assertNotNull("name is null", person.getName());
 		assertNotNull("personal emails are null", person.getPersonalEmails());
 		

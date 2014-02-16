@@ -8,6 +8,8 @@ public class FenixPersonCourses {
         private String id;
         private String acronym;
         private String name;
+        private String academicTerm;
+        private String url;
 
         public FenixCourse(String id, String acronym, String name) {
             super();
@@ -40,6 +42,22 @@ public class FenixPersonCourses {
             this.name = name;
         }
 
+		public String getAcademicTerm() {
+			return academicTerm;
+		}
+
+		public void setAcademicTerm(String academicTerm) {
+			this.academicTerm = academicTerm;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+		
     }
 
     public static class FenixEnrolment extends FenixCourse {
@@ -60,8 +78,7 @@ public class FenixPersonCourses {
 
     }
 
-    private String year;
-    private Integer semester;
+    
     private List<FenixEnrolment> enrolments;
     private List<FenixCourse> teaching;
 
@@ -69,31 +86,13 @@ public class FenixPersonCourses {
 
     }
 
-    public FenixPersonCourses(String year, Integer semester, List<FenixEnrolment> enrolments, List<FenixCourse> teaching) {
+    public FenixPersonCourses(String academicTerm, List<FenixEnrolment> enrolments, List<FenixCourse> teaching) {
         super();
-        this.year = year;
-        this.semester = semester;
         this.enrolments = enrolments;
         this.teaching = teaching;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public Integer getSemester() {
-        return semester;
-    }
-
-    public void setSemester(Integer semester) {
-        this.semester = semester;
-    }
-
-    public List<FenixEnrolment> getEnrolments() {
+	public List<FenixEnrolment> getEnrolments() {
         return enrolments;
     }
 

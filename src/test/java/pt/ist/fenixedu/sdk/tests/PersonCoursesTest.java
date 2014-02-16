@@ -4,8 +4,7 @@ import pt.ist.fenixedu.sdk.beans.FenixPersonCourses;
 import pt.ist.fenixedu.sdk.beans.FenixPersonCourses.FenixEnrolment;
 
 public class PersonCoursesTest extends FenixEduTestCase {
-	private final int SEMESTER = 1;
-	private final String YEAR = "2013/2014";
+	private final String academicTerm = "2013/2014";
 	private FenixPersonCourses courses;
 	
 
@@ -17,17 +16,11 @@ public class PersonCoursesTest extends FenixEduTestCase {
 	}
 
 	public void testNotNull() {
-		courses = getClient().getPersonCourses(SEMESTER, YEAR);
+		courses = getClient().getPersonCourses(academicTerm);
 		
 		assertNotNull("Courses list is null", courses);
 		assertNotNull("Enrollments list is null", courses.getEnrolments());
 		assertNotNull("Teaching list is null", courses.getTeaching());
-		
-		assertNotNull("Year is null", courses.getYear());
-		assertEquals("Years must be the same", YEAR, courses.getYear());
-		
-		assertNotNull("Semester is null", courses.getSemester());
-		assertEquals("Semesters must be the same", SEMESTER, courses.getSemester().intValue());
 		
 		for(FenixEnrolment enrolment : courses.getEnrolments()) {
 			assertNotNull("Enrolment acronym is null", enrolment.getAcronym());
@@ -51,13 +44,5 @@ public class PersonCoursesTest extends FenixEduTestCase {
 		this.courses = courses;
 	}
 
-	public int getSEMESTER() {
-		return SEMESTER;
-	}
-
-	public String getYEAR() {
-		return YEAR;
-	}
-	
 	
 }

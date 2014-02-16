@@ -69,8 +69,7 @@ public class SpaceTest extends FenixEduTestCase {
         assertNotNull("Room type is null", room.getType());
         //assertNotNull("Room contained spaces is null", room.getContainedSpaces());
         assertNotNull("Room parent space is null", room.getParentSpace());
-        assertNotNull("Room Exam Capacity is null", room.getExamCapacity());
-        assertNotNull("Room Normal capacity is null", room.getNormalCapacity());
+        assertNotNull("Room Capacity is null", room.getCapacity());
         assertNotNull("Room events list is null", room.getEvents());
     }
 }

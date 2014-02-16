@@ -22,7 +22,7 @@ public class AboutTest extends FenixEduTestCase {
 		
 		for(FenixRSSFeed feed : about.getRssFeeds()) {
 			assertNotNull("Feed description null", feed.getDescription());
-			assertNotNull("Feed uri is null", feed.getUri());
+			assertNotNull("Feed uri is null", feed.getUrl());
 		}
 		
 	}

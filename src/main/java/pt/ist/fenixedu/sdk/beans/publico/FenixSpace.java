@@ -250,21 +250,17 @@ public class FenixSpace {
         }
 
         private String description;
-        private Integer normalCapacity;
-        private Integer examCapacity;
-
+        private RoomCapacity capacity;
         private List<RoomEvent> events;
 
         public Room(String id, String name) {
             super(id, name, "ROOM");
         }
 
-        public Room(String id, String name, FenixSpace parentSpace, String description, Integer normalCapacity,
-                Integer examCapacity, List<RoomEvent> events) {
+        public Room(String id, String name, FenixSpace parentSpace, String description, RoomCapacity capacity, List<RoomEvent> events) {
             super(id, name, "ROOM", null, parentSpace);
             this.description = description;
-            this.normalCapacity = normalCapacity;
-            this.examCapacity = examCapacity;
+            this.capacity = capacity;
             if (events == null || events.isEmpty()) {
                 events = new ArrayList<RoomEvent>();
             }
@@ -279,28 +275,47 @@ public class FenixSpace {
 			this.description = description;
 		}
 
-		public Integer getNormalCapacity() {
-			return normalCapacity;
-		}
-
-		public void setNormalCapacity(Integer normalCapacity) {
-			this.normalCapacity = normalCapacity;
-		}
-
-		public Integer getExamCapacity() {
-			return examCapacity;
-		}
-
-		public void setExamCapacity(Integer examCapacity) {
-			this.examCapacity = examCapacity;
-		}
-
 		public List<RoomEvent> getEvents() {
 			return events;
 		}
 
 		public void setEvents(List<RoomEvent> events) {
 			this.events = events;
+		}
+		
+		
+		
+		public RoomCapacity getCapacity() {
+			return capacity;
+		}
+
+		public void setCapacity(RoomCapacity capacity) {
+			this.capacity = capacity;
+		}
+
+		public static class RoomCapacity {
+			
+			private Integer normal;
+			private Integer exam;
+			
+			public RoomCapacity() {
+			}
+			
+			
+			public Integer getNormal() {
+				return normal;
+			}
+			public void setNormal(Integer normal) {
+				this.normal = normal;
+			}
+			public Integer getExam() {
+				return exam;
+			}
+			public void setExam(Integer exam) {
+				this.exam = exam;
+			}
+			
+			
 		}
     }
 
