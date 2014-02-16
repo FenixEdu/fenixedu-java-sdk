@@ -22,6 +22,5 @@ public class FenixEduClientFactory {
         }
         return INSTANCE;
     }
-
-
+    
 }

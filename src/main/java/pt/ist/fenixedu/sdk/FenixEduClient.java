@@ -88,10 +88,11 @@ public class FenixEduClient {
      * 
      * @param config the config
      */
-    FenixEduClient(FenixEduConfig config) {
+    public FenixEduClient(FenixEduConfig config) {
         this.client = Client.create();
         this.config = config;
         this.gson = new Gson();
+        singleUserConfig = new FenixEduUserConfig();
     }
 
     /**
