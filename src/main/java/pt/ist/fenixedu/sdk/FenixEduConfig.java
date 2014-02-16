@@ -15,13 +15,9 @@ public class FenixEduConfig {
     private final String baseUrl;
     private final String callbackUrl;
 
-    private String accessToken;
-    private String refreshToken;
-
-    public FenixEduConfig(String consumerKey, String consumerSecret, String accessToken, String baseUrl, String callbackUrl) {
+    public FenixEduConfig(String consumerKey, String consumerSecret, String baseUrl, String callbackUrl) {
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
-        this.accessToken = accessToken;
         this.baseUrl = baseUrl;
         this.callbackUrl = callbackUrl;
     }
@@ -40,22 +36,6 @@ public class FenixEduConfig {
 
     public String getCallbackUrl() {
         return callbackUrl;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
     }
 
 }

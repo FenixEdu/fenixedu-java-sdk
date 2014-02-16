@@ -51,6 +51,9 @@ public class FenixEduClient {
 
     /** The config. */
     private final FenixEduConfig config;
+    
+    /** Single user config */
+    private FenixEduUserConfig singleUserConfig;
 
     /** The client. */
     private final Client client;
@@ -74,7 +77,9 @@ public class FenixEduClient {
         String accessToken = props.getProperty(FenixEduConfig.ACCESS_TOKEN, null);
 
         this.client = Client.create();
-        this.config = new FenixEduConfig(consumerKey, consumerSecret, accessToken, baseUrl, callbackUrl);
+        this.config = new FenixEduConfig(consumerKey, consumerSecret, baseUrl, callbackUrl);
+        singleUserConfig = new FenixEduUserConfig();
+        singleUserConfig.setAccessToken(accessToken);
         this.gson = new Gson();
     }
 
@@ -120,7 +125,7 @@ public class FenixEduClient {
      * 
      * @param code the new code
      */
-    public void setCode(String code) {
+    public void setCode(String code, FenixEduUserConfig userConfig) {
         LOG.debug("Setting Code: {}", code);
         Map<String, String> params = new HashMap<String, String>();
         params.put("client_id", this.config.getConsumerKey());
@@ -144,8 +149,8 @@ public class FenixEduClient {
         JsonObject response = new JsonParser().parse(rsp).getAsJsonObject();
         String accessToken = response.get("access_token").getAsString();
         String refreshToken = response.get("refresh_token").getAsString();
-        config.setAccessToken(accessToken);
-        config.setRefreshToken(refreshToken);
+        userConfig.setAccessToken(accessToken);
+        userConfig.setRefreshToken(refreshToken);
     }
 
     /**
@@ -157,9 +162,9 @@ public class FenixEduClient {
      * @param clazz the clazz
      * @return the t
      */
-    private <T extends JsonElement> T invokePrivate(String endpoint, String httpMethod, Class<T> clazz) {
+    private <T extends JsonElement> T invokePrivate(String endpoint, String httpMethod, Class<T> clazz, FenixEduUserConfig userConfig) {
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("access_token", config.getAccessToken());
+        queryParams.put("access_token", userConfig.getAccessToken());
         return invoke(endpoint, httpMethod, clazz, queryParams);
     }
 
@@ -175,8 +180,8 @@ public class FenixEduClient {
      * @return the t
      */
     private <T extends JsonElement> T invokePrivate(String endpoint, String httpMethod, Class<T> clazz,
-            Map<String, String> queryParams) {
-        queryParams.put("access_token", config.getAccessToken());
+            Map<String, String> queryParams, FenixEduUserConfig userConfig) {
+        queryParams.put("access_token", userConfig.getAccessToken());
         return invoke(endpoint, httpMethod, clazz, queryParams);
     }
 
@@ -274,12 +279,16 @@ public class FenixEduClient {
      * 
      * @return information about the person
      */
-    public FenixPerson getPerson() {
-        JsonObject json = invokePrivate(privateEndpoint("person"), HttpMethod.GET, JsonObject.class);
+    public FenixPerson getPerson(FenixEduUserConfig userConfig) {
+        JsonObject json = invokePrivate(privateEndpoint("person"), HttpMethod.GET, JsonObject.class, userConfig);
         System.out.println(json.toString());
 
         FenixPerson person = gson.fromJson(json, FenixPerson.class);
         return person;
+    }
+    
+    public FenixPerson getPerson() {
+    	return getPerson(singleUserConfig);
     }
 
     /**
@@ -287,10 +296,14 @@ public class FenixEduClient {
      * 
      * @return information about the person curriculum
      */
-    public FenixCurriculum[] getPersonCurriculum() {
-        JsonArray json = invokePrivate(privateEndpoint("person/curriculum"), HttpMethod.GET, JsonArray.class);
+    public FenixCurriculum[] getPersonCurriculum(FenixEduUserConfig userConfig) {
+        JsonArray json = invokePrivate(privateEndpoint("person/curriculum"), HttpMethod.GET, JsonArray.class, userConfig);
         FenixCurriculum[] list = gson.fromJson(json, FenixCurriculum[].class);
         return list;
+    }
+    
+    public FenixCurriculum[] getPersonCurriculum() {
+    	return getPersonCurriculum(singleUserConfig);
     }
 
     /**
@@ -304,12 +317,16 @@ public class FenixEduClient {
      *            the response format, which can either be iCal or JSON.
      * @return the calendar with classes in the format requested.
      */
-    public FenixCalendar getPersonCalendarClasses(CalendarFormat format) {
+    public FenixCalendar getPersonCalendarClasses(CalendarFormat format, FenixEduUserConfig userConfig) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("format", format.toString());
-        JsonObject json = invokePrivate(privateEndpoint("person/calendar/classes"), HttpMethod.GET, JsonObject.class, params);
+        JsonObject json = invokePrivate(privateEndpoint("person/calendar/classes"), HttpMethod.GET, JsonObject.class, params, userConfig);
         FenixCalendar calendar = gson.fromJson(json, FenixCalendar.class);
         return calendar;
+    }
+    
+    public FenixCalendar getPersonCalendarClasses(CalendarFormat format) {
+    	return getPersonCalendarClasses(format, singleUserConfig);
     }
 
     /**
@@ -324,12 +341,16 @@ public class FenixEduClient {
      *            the response format, which can either be iCal or JSON.
      * @return the calendar with classes in the format requested.
      */
-    public FenixCalendar getPersonCalendarEvaluations(CalendarFormat format) {
+    public FenixCalendar getPersonCalendarEvaluations(CalendarFormat format, FenixEduUserConfig userConfig) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("format", format.toString());
-        JsonObject json = invokePrivate(privateEndpoint("person/calendar/evaluations"), HttpMethod.GET, JsonObject.class, params);
+        JsonObject json = invokePrivate(privateEndpoint("person/calendar/evaluations"), HttpMethod.GET, JsonObject.class, params, userConfig);
         FenixCalendar calendar = gson.fromJson(json, FenixCalendar.class);
         return calendar;
+    }
+    
+    public FenixCalendar getPersonCalendarEvaluations(CalendarFormat format) {
+    	return getPersonCalendarEvaluations(format, singleUserConfig);
     }
 
     /**
@@ -337,10 +358,14 @@ public class FenixEduClient {
      * 
      * @return the person evaluations
      */
-    public FenixEvaluation[] getPersonEvaluations() {
-        JsonArray json = invokePrivate(privateEndpoint("person/evaluations"), HttpMethod.GET, JsonArray.class);
+    public FenixEvaluation[] getPersonEvaluations(FenixEduUserConfig userConfig) {
+        JsonArray json = invokePrivate(privateEndpoint("person/evaluations"), HttpMethod.GET, JsonArray.class, userConfig);
         FenixEvaluation[] evaluations = gson.fromJson(json, FenixEvaluation[].class);
         return evaluations;
+    }
+    
+    public FenixEvaluation[] getPersonEvaluations() {
+    	return getPersonEvaluations(singleUserConfig);
     }
 
     /**
@@ -356,13 +381,17 @@ public class FenixEduClient {
      *            the enroll or withdraw action.
      * @return the array of evaluations of the student
      */
-    public FenixEvaluation[] enrollPersonInEvaluation(String evaluationId, EnrolAction action) {
+    public FenixEvaluation[] enrollPersonInEvaluation(String evaluationId, EnrolAction action, FenixEduUserConfig userConfig) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("enrol", action.toString());
         JsonArray json =
-                invokePrivate(privateEndpoint("person/evaluations/" + evaluationId), HttpMethod.PUT, JsonArray.class, params);
+                invokePrivate(privateEndpoint("person/evaluations/" + evaluationId), HttpMethod.PUT, JsonArray.class, params, userConfig);
         FenixEvaluation[] evaluations = gson.fromJson(json, FenixEvaluation[].class);
         return evaluations;
+    }
+    
+    public FenixEvaluation[] enrollPersonInEvaluation(String evaluationId, EnrolAction action) {
+    	return enrollPersonInEvaluation(evaluationId, action, singleUserConfig);
     }
 
     /**
@@ -374,10 +403,14 @@ public class FenixEduClient {
      * 
      * @return the payments of the person.
      */
-    public FenixPayment getPersonPayments() {
-        JsonObject json = invokePrivate(privateEndpoint("person/payments"), HttpMethod.GET, JsonObject.class);
+    public FenixPayment getPersonPayments(FenixEduUserConfig userConfig) {
+        JsonObject json = invokePrivate(privateEndpoint("person/payments"), HttpMethod.GET, JsonObject.class, userConfig);
         FenixPayment payment = gson.fromJson(json, FenixPayment.class);
         return payment;
+    }
+    
+    public FenixPayment getPersonPayments() {
+    	return getPersonPayments(singleUserConfig);
     }
 
     /**
@@ -563,13 +596,16 @@ public class FenixEduClient {
      *            the execution year (e.g. 2003/2004)
      * @return both the courses that the person is teaching and/or enrolled on.
      */
-    public FenixPersonCourses getPersonCourses(int semester, String year) {
+    public FenixPersonCourses getPersonCourses(String academicTerm, FenixEduUserConfig userConfig) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("sem", String.valueOf(semester));
-        params.put("year", year);
-        JsonObject json = invokePrivate(privateEndpoint("person/courses"), HttpMethod.GET, JsonObject.class, params);
+        params.put("academicTerm", academicTerm);
+        JsonObject json = invokePrivate(privateEndpoint("person/courses"), HttpMethod.GET, JsonObject.class, params, userConfig);
         FenixPersonCourses courses = gson.fromJson(json, FenixPersonCourses.class);
         return courses;
+    }
+    
+    public FenixPersonCourses getPersonCourses(String academicTerm) {
+    	return getPersonCourses(academicTerm, singleUserConfig);
     }
 
     /**
