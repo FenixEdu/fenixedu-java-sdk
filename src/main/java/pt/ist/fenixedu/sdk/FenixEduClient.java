@@ -116,7 +116,7 @@ public class FenixEduClient {
 
         WebResource resource = client.resource(url + "?" + Joiner.on("&").join(queryParams));
         String authenticationUrl = resource.getURI().toString();
-        LOG.debug("Authentication URL provided is: {}", authenticationUrl);
+        //LOG.debug("Authentication URL provided is: {}", authenticationUrl);
 
         return authenticationUrl;
     }
@@ -127,7 +127,7 @@ public class FenixEduClient {
      * @param code the new code
      */
     public void setCode(String code, FenixEduUserConfig userConfig) {
-        LOG.debug("Setting Code: {}", code);
+        //LOG.debug("Setting Code: {}", code);
         Map<String, String> params = new HashMap<String, String>();
         params.put("client_id", this.config.getConsumerKey());
         params.put("redirect_uri", this.config.getCallbackUrl());
@@ -218,7 +218,7 @@ public class FenixEduClient {
             }
         }
         //webResource = webResource.queryParam("access_token", config.getAccessToken());
-        System.out.println(webResource.getURI());
+        //System.out.println(webResource.getURI());
         webResource.accept(MediaType.APPLICATION_JSON);
         String rsp = webResource.method(httpMethod, String.class);
         JsonElement result = new JsonParser().parse(rsp);
@@ -282,7 +282,6 @@ public class FenixEduClient {
      */
     public FenixPerson getPerson(FenixEduUserConfig userConfig) {
         JsonObject json = invokePrivate(privateEndpoint("person"), HttpMethod.GET, JsonObject.class, userConfig);
-        System.out.println(json.toString());
 
         FenixPerson person = gson.fromJson(json, FenixPerson.class);
         return person;
