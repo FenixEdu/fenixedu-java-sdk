@@ -9,6 +9,8 @@ public interface PublicResources {
 
     JsonObject getAbout() throws FenixEduClientException;
 
+    JsonObject getDomainModel() throws FenixEduClientException;
+
     JsonObject getAcademicTerms() throws FenixEduClientException;
 
     JsonObject getCourse(String courseId) throws FenixEduClientException;
@@ -38,5 +40,4 @@ public interface PublicResources {
     JsonObject getSpace(String spaceId, String day) throws FenixEduClientException;
 
     byte[] getSpaceBlueprint(String spaceId) throws FenixEduClientException;
-
 }

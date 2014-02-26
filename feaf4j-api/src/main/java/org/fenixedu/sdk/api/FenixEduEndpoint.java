@@ -14,7 +14,8 @@ public enum FenixEduEndpoint {
     OAUTH_USER_DIALOG("/oauth/userdialog", Scope.AUTH, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
     OAUTH_ACCESS_TOKEN("/oauth/access_token", Scope.AUTH, HttpMethod.POST, MediaType.APPLICATION_JSON, JsonObject.class),
 
-    ABOUT("about", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS("academicterms",
+    ABOUT("about", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), DOMAIN_MODEL("domainModel",
+            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS("academicterms",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE("course", Scope.PUBLIC,
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS("course/%s/evaluations",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS("course/%s/groups",

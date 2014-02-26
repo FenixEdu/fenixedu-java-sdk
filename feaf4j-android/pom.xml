@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.fenixedu</groupId>
+        <artifactId>feaf4j</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <artifactId>feaf4j-android</artifactId>
+
+    <name>FenixEdu Java SDK Android</name>
+
+    <properties>
+        <version.org.fenixedu.feaf4j>2.0.0</version.org.fenixedu.feaf4j>
+        <version.com.google.android>4.1.1.4</version.com.google.android>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>feaf4j-api</artifactId>
+            <version>${version.org.fenixedu.feaf4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${version.com.google.android}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

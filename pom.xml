@@ -43,6 +43,7 @@
         <module>feaf4j-api</module>
         <module>feaf4j-okhttp</module>
 	<module>feaf4j-jersey</module>
+	<module>feaf4j-android</module>
     </modules>
     
     <repositories>

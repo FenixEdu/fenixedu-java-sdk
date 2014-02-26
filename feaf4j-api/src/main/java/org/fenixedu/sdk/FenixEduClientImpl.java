@@ -408,4 +408,8 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
         return invoke(FenixEduEndpoint.SPACE_BLUEPRINT, spaceId);
     }
 
+    @Override
+    public JsonObject getDomainModel() throws FenixEduClientException {
+        return invoke(FenixEduEndpoint.DOMAIN_MODEL);
+    }
 }

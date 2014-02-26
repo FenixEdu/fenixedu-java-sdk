@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-public class FenixEduClientException extends Exception {
+public class FenixEduClientException extends RuntimeException {
 
     private static final long serialVersionUID = -889474687022606439L;
 

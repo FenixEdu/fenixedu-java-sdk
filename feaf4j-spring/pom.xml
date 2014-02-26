@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.fenixedu</groupId>
+        <artifactId>feaf4j</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <artifactId>feaf4j-spring-security</artifactId>
+
+    <name>FenixEdu Java SDK Spring Security Binding</name>
+
+    <properties>
+        <version.org.springframework>4.0.1.RELEASE</version.org.springframework>
+    	<version.org.springframework.security>3.2.0.RELEASE</version.org.springframework.security>
+        <version.javax.servlet.api>3.0.1</version.javax.servlet.api>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>feaf4j-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${version.org.springframework.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${version.org.springframework.security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${version.org.springframework.security}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${version.javax.servlet.api}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
