@@ -8,12 +8,12 @@
         <version>1.3.0</version>
     </parent>
     
-    <artifactId>fenixedu-sdk</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <artifactId>feaf4j</artifactId>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
     
-    <name>FenixEdu Java SDK</name>
-    <description>A Java library for the FenixEdu API</description>
+    <name>FenixEdu Api Facade for Java</name>
+    <description>The FenixEdu Api Facade library</description>
     <url>http://fenixedu.org/dev/api</url>
    
     <scm>
@@ -40,8 +40,9 @@
     </issueManagement>
    
     <modules>
-        <module>async</module>
-        <module>core</module>
+        <module>feaf4j-api</module>
+        <module>feaf4j-okhttp</module>
+	<module>feaf4j-jersey</module>
     </modules>
     
     <repositories>
