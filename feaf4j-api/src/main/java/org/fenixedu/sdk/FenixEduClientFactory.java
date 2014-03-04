@@ -13,7 +13,7 @@ public class FenixEduClientFactory {
 
     public static FenixEduClient getSingleton() {
         if (SINGLETON == null) {
-            SINGLETON = new FenixEduClientImpl(ApplicationConfiguration.fromProperties("fenixedu.properties"));
+            SINGLETON = new FenixEduClientImpl(ApplicationConfiguration.fromPropertyFilename("fenixedu.properties"));
         }
         return SINGLETON;
     }

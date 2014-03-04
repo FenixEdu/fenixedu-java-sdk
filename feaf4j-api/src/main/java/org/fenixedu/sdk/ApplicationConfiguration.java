@@ -12,7 +12,7 @@ public class ApplicationConfiguration {
     private final String oauthConsumerSecret;
     private final String callbackUrl;
 
-    public static ApplicationConfiguration fromProperties(String propertiesFilename) {
+    public static ApplicationConfiguration fromPropertyFilename(String propertiesFilename) {
         Properties props = new Properties();
         try {
             props.load(ApplicationConfiguration.class.getResourceAsStream(propertiesFilename));
@@ -21,6 +21,11 @@ public class ApplicationConfiguration {
         } catch (IOException e) {
             throw new FenixEduClientException("Could not load " + propertiesFilename + " file.", e);
         }
+    }
+
+    public static ApplicationConfiguration fromProperties(Properties props) {
+        return new ApplicationConfiguration(props.getProperty("base.url"), props.getProperty("oauth.consumer.key"),
+                props.getProperty("oauth.consumer.secret"), props.getProperty("callback.url"));
     }
 
     public ApplicationConfiguration(String baseUrl, String oauthConsumerKey, String oauthConsumerSecret, String callbackUrl) {
