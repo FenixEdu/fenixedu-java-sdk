@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.fenixedu.sdk.ClientResponse;
@@ -41,12 +40,9 @@ public class OkHttpClientMediator implements HttpClient {
     }
 
     @Override
-    public ClientResponse handleHttpRequest(HttpRequest httpRequest) throws FenixEduClientException {
+    public ClientResponse handleHttpRequest(HttpRequest httpRequest) {
         logger.debug("Deciding the HTTP Request delegate based on HTTP Method");
         String url = httpRequest.getUrl();
-//        if (httpRequest.getQueryParams() != null) {
-//            url = url + "?" + Joiner.getEncodedQueryParams(httpRequest.getQueryParams());
-//        }
         logger.debug("HTTP Request URL is: {}", url);
         try {
             switch (httpRequest.getHttpMethod()) {
@@ -60,18 +56,15 @@ public class OkHttpClientMediator implements HttpClient {
         } catch (Exception e) {
             throw new FenixEduClientException("Error handling request", e);
         }
-
     }
 
-    private ClientResponse handleGetRequest(String url, HttpRequest httpRequest) throws FenixEduClientException {
+    private ClientResponse handleGetRequest(String url, HttpRequest httpRequest) {
         logger.debug("HTTP Request delegated to GET handler");
         InputStream in = null;
         try {
             HttpURLConnection connection = client.open(new URL(url));
             in = connection.getInputStream();
             return new ClientResponse(Status.fromStatusCode(connection.getResponseCode()), readStringFromInputStream(in));
-        } catch (MalformedURLException e) {
-            throw new FenixEduClientException("Problem in handling GET request", e);
         } catch (IOException e) {
             throw new FenixEduClientException("Problem in handling GET request", e);
         } finally {
@@ -85,7 +78,7 @@ public class OkHttpClientMediator implements HttpClient {
         }
     }
 
-    public String readStringFromInputStream(InputStream inputStream) throws IOException {
+    private String readStringFromInputStream(InputStream inputStream) throws IOException {
         BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder result = new StringBuilder();
         String line;
