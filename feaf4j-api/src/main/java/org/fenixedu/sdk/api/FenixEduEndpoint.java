@@ -34,9 +34,9 @@ public enum FenixEduEndpoint {
     PERSON_EVALUATIONS("person/evaluations", Scope.EVALUATION, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class),
     PERSON_EVALUATION("person/evaluations/%s", Scope.EVALUATION, HttpMethod.PUT, MediaType.APPLICATION_JSON, JsonObject.class),
     PERSON_PAYMENTS("person/payments", Scope.PAYMENT, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACES(
-            "spaces", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), SPACE("space/%s", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACE_BLUEPRINT("spaces/%s/blueprint", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, File.class);
+            "spaces", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), SPACE("spaces/%s",
+            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACE_BLUEPRINT("spaces/%s/blueprint",
+            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, File.class);
 
     private String pathRegex;
     private Scope scope;
