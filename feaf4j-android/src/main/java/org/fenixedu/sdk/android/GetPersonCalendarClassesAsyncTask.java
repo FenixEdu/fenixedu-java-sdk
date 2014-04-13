@@ -7,7 +7,8 @@ import org.fenixedu.sdk.domain.CalendarFormat;
 import com.google.gson.JsonObject;
 
 /**
- * This endpoint returns the user's course information.
+ * This endpoint returns the user's class information.
+ * This information can be retrieved both in iCalendar and JSON formats.
  */
 public class GetPersonCalendarClassesAsyncTask extends AuthorizedFenixEduAsyncTask<CalendarFormat, JsonObject> {
 

@@ -6,8 +6,7 @@ import org.fenixedu.sdk.FenixEduClient;
 import com.google.gson.JsonObject;
 
 /**
- * This endpoint returns the user's class information.
- * This information can be retrieved both in iCalendar and JSON formats.
+ * This endpoint returns the user's course information.
  */
 public class GetPersonCoursesAsyncTask extends AuthorizedFenixEduAsyncTask<String, JsonObject> {
 
