@@ -65,7 +65,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getAbout() throws FenixEduClientException {
+    public JsonObject getAbout() {
         return invoke(FenixEduEndpoint.ABOUT);
     }
 
@@ -80,7 +80,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPerson(Authorization authorization) throws FenixEduClientException {
+    public JsonObject getPerson(Authorization authorization) {
         return invoke(FenixEduEndpoint.PERSON, authorization);
     }
 
@@ -91,7 +91,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getPersonCurriculum(Authorization authorization) throws FenixEduClientException {
+    public JsonArray getPersonCurriculum(Authorization authorization) {
         return invoke(FenixEduEndpoint.PERSON_CURRICULUM, authorization);
     }
 
@@ -108,7 +108,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPersonCalendarClasses(Authorization authorization, CalendarFormat format) throws FenixEduClientException {
+    public JsonObject getPersonCalendarClasses(Authorization authorization, CalendarFormat format) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("format", format.toString());
         return invoke(FenixEduEndpoint.PERSON_CALENDAR_CLASSES, authorization, params);
@@ -128,15 +128,14 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPersonCalendarEvaluations(Authorization authorization, CalendarFormat format)
-            throws FenixEduClientException {
+    public JsonObject getPersonCalendarEvaluations(Authorization authorization, CalendarFormat format) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("format", format.toString());
         return invoke(FenixEduEndpoint.PERSON_CALENDAR_EVALUATIONS, authorization, params);
     }
 
     @Override
-    public JsonArray getPersonEvaluations(Authorization authorization) throws FenixEduClientException {
+    public JsonArray getPersonEvaluations(Authorization authorization) {
         return invoke(FenixEduEndpoint.PERSON_EVALUATIONS, authorization);
     }
 
@@ -155,8 +154,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray enrollPersonInEvaluation(Authorization authorization, String evaluationId, EnrolAction action)
-            throws FenixEduClientException {
+    public JsonArray enrollPersonInEvaluation(Authorization authorization, String evaluationId, EnrolAction action) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("enrol", action.toString());
         return invoke(FenixEduEndpoint.PERSON_EVALUATION, authorization, params, evaluationId);
@@ -173,7 +171,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPersonPayments(Authorization authorization) throws FenixEduClientException {
+    public JsonObject getPersonPayments(Authorization authorization) {
         return invoke(FenixEduEndpoint.PERSON_PAYMENTS, authorization);
     }
 
@@ -185,7 +183,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getCourse(String courseId) throws FenixEduClientException {
+    public JsonObject getCourse(String courseId) {
         return invoke(FenixEduEndpoint.COURSE, courseId);
     }
 
@@ -197,7 +195,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getCourseEvaluations(String courseId) throws FenixEduClientException {
+    public JsonArray getCourseEvaluations(String courseId) {
         return invoke(FenixEduEndpoint.COURSE_EVALUATIONS, courseId);
     }
 
@@ -209,7 +207,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getCourseGroups(String courseId) throws FenixEduClientException {
+    public JsonArray getCourseGroups(String courseId) {
         return invoke(FenixEduEndpoint.COURSE_GROUPS, courseId);
     }
 
@@ -225,7 +223,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getCourseSchedule(String courseId) throws FenixEduClientException {
+    public JsonObject getCourseSchedule(String courseId) {
         return invoke(FenixEduEndpoint.COURSE_SCHEDULE, courseId);
     }
 
@@ -237,7 +235,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getCourseStudents(String courseId) throws FenixEduClientException {
+    public JsonObject getCourseStudents(String courseId) {
         return invoke(FenixEduEndpoint.COURSE_STUDENTS, courseId);
     }
 
@@ -248,7 +246,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getSpaces() throws FenixEduClientException {
+    public JsonArray getSpaces() {
         return invoke(FenixEduEndpoint.SPACES);
     }
 
@@ -266,7 +264,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getSpace(String spaceId, String day) throws FenixEduClientException {
+    public JsonObject getSpace(String spaceId, String day) {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("day", day);
         return invoke(FenixEduEndpoint.SPACE, queryParams, spaceId);
@@ -278,7 +276,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @return a JsonArray describing the courses of the current academic term.
      */
     @Override
-    public JsonArray getDegrees() throws FenixEduClientException {
+    public JsonArray getDegrees() {
         return invoke(FenixEduEndpoint.DEGREES);
     }
 
@@ -292,7 +290,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getDegrees(String academicTerm) throws FenixEduClientException {
+    public JsonArray getDegrees(String academicTerm) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("academicTerm", academicTerm);
         return invoke(FenixEduEndpoint.DEGREES, params);
@@ -314,7 +312,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getDegree(String degreeId, String academicTerm) throws FenixEduClientException {
+    public JsonObject getDegree(String degreeId, String academicTerm) {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("academicTerm", academicTerm);
         return invoke(FenixEduEndpoint.DEGREE, queryParams, degreeId);
@@ -333,7 +331,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getDegreeCourses(String degreeId) throws FenixEduClientException {
+    public JsonArray getDegreeCourses(String degreeId) {
         return invoke(FenixEduEndpoint.DEGREE_COURSES, degreeId);
     }
 
@@ -350,7 +348,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonArray getDegreeCourses(String degreeId, String academicTerm) throws FenixEduClientException {
+    public JsonArray getDegreeCourses(String degreeId, String academicTerm) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("academicTerm", academicTerm);
         return invoke(FenixEduEndpoint.DEGREE_COURSES, params, degreeId);
@@ -369,7 +367,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPersonCourses(Authorization authorization) throws FenixEduClientException {
+    public JsonObject getPersonCourses(Authorization authorization) {
         return invoke(FenixEduEndpoint.PERSON_COURSES, authorization);
     }
 
@@ -382,34 +380,34 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * </p>
      * 
      * @param academicTerm
-     *            the academic term (e.g. 2003/2004)
-     * @return both the courses that the person is teaching and/or enrolled on.
+     *            the academic term (e.g. "2003/2004")
+     * @return both the courses that the person is teaching or enrolled on.
      * @throws FenixEduClientException
      */
     @Override
-    public JsonObject getPersonCourses(Authorization authorization, String academicTerm) throws FenixEduClientException {
+    public JsonObject getPersonCourses(Authorization authorization, String academicTerm) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("academicTerm", academicTerm);
         return invoke(FenixEduEndpoint.PERSON_COURSES, authorization, params);
     }
 
     @Override
-    public JsonObject getAcademicTerms() throws FenixEduClientException {
+    public JsonObject getAcademicTerms() {
         return invoke(FenixEduEndpoint.ACADEMIC_TERMS);
     }
 
     @Override
-    public JsonObject getDegree(String degreeId) throws FenixEduClientException {
+    public JsonObject getDegree(String degreeId) {
         return invoke(FenixEduEndpoint.DEGREE, degreeId);
     }
 
     @Override
-    public byte[] getSpaceBlueprint(String spaceId) throws FenixEduClientException {
+    public byte[] getSpaceBlueprint(String spaceId) {
         return invoke(FenixEduEndpoint.SPACE_BLUEPRINT, spaceId);
     }
 
     @Override
-    public JsonObject getDomainModel() throws FenixEduClientException {
+    public JsonObject getDomainModel() {
         return invoke(FenixEduEndpoint.DOMAIN_MODEL);
     }
 }

@@ -44,6 +44,7 @@
         <module>feaf4j-okhttp</module>
 	<module>feaf4j-jersey</module>
 	<module>feaf4j-android</module>
+	<module>feaf4j-spring-security</module>
     </modules>
     
     <repositories>

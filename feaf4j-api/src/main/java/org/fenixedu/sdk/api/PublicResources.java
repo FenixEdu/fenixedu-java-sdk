@@ -1,43 +1,41 @@
 package org.fenixedu.sdk.api;
 
-import org.fenixedu.sdk.exception.FenixEduClientException;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public interface PublicResources {
 
-    JsonObject getAbout() throws FenixEduClientException;
+    JsonObject getAbout();
 
-    JsonObject getDomainModel() throws FenixEduClientException;
+    JsonObject getDomainModel();
 
-    JsonObject getAcademicTerms() throws FenixEduClientException;
+    JsonObject getAcademicTerms();
 
-    JsonObject getCourse(String courseId) throws FenixEduClientException;
+    JsonObject getCourse(String courseId);
 
-    JsonArray getCourseEvaluations(String courseId) throws FenixEduClientException;
+    JsonArray getCourseEvaluations(String courseId);
 
-    JsonArray getCourseGroups(String courseId) throws FenixEduClientException;
+    JsonArray getCourseGroups(String courseId);
 
-    JsonObject getCourseSchedule(String courseId) throws FenixEduClientException;
+    JsonObject getCourseSchedule(String courseId);
 
-    JsonObject getCourseStudents(String courseId) throws FenixEduClientException;
+    JsonObject getCourseStudents(String courseId);
 
-    JsonArray getDegrees() throws FenixEduClientException;
+    JsonArray getDegrees();
 
-    JsonArray getDegrees(String academicTerm) throws FenixEduClientException;
+    JsonArray getDegrees(String academicTerm);
 
-    JsonObject getDegree(String degreeId) throws FenixEduClientException;
+    JsonObject getDegree(String degreeId);
 
-    JsonObject getDegree(String degreeId, String academicTerm) throws FenixEduClientException;
+    JsonObject getDegree(String degreeId, String academicTerm);
 
-    JsonArray getDegreeCourses(String degreeId) throws FenixEduClientException;
+    JsonArray getDegreeCourses(String degreeId);
 
-    JsonArray getDegreeCourses(String degreeId, String academicTerm) throws FenixEduClientException;
+    JsonArray getDegreeCourses(String degreeId, String academicTerm);
 
-    JsonArray getSpaces() throws FenixEduClientException;
+    JsonArray getSpaces();
 
-    JsonObject getSpace(String spaceId, String day) throws FenixEduClientException;
+    JsonObject getSpace(String spaceId, String day);
 
-    byte[] getSpaceBlueprint(String spaceId) throws FenixEduClientException;
+    byte[] getSpaceBlueprint(String spaceId);
 }

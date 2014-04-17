@@ -20,7 +20,6 @@ public class FenixEduClientException extends RuntimeException {
     }
 
     private void decode(String str) {
-
         if (str != null && str.startsWith("{")) {
             try {
                 JsonObject jsonObject = new JsonParser().parse(str).getAsJsonObject();

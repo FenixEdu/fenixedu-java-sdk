@@ -12,6 +12,8 @@ import org.fenixedu.sdk.FenixEduClient;
 import org.fenixedu.sdk.FenixEduClientFactory;
 import org.fenixedu.sdk.FenixEduUserDetails;
 import org.fenixedu.spring.security.exception.FenixEduAuthenticationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
@@ -20,24 +22,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.util.StringUtils;
 
-public class FenixEduOAuthAuthAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class FenixEduOAuthAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+
+    private static final Logger logger = LoggerFactory.getLogger(FenixEduOAuthAuthenticationFilter.class);
 
     private final ApplicationConfiguration applicationConfiguration;
     private final String sessionVariableName;
 
-    protected FenixEduOAuthAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
+    public FenixEduOAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
             String sessionVariableName) {
         this(providerManager, defaultFilterProcessesUrl, sessionVariableName, ApplicationConfiguration
-                .fromProperties("fenixedu.properties"));
+                .fromPropertyFilename("/fenixedu.properties"));
     }
 
-    protected FenixEduOAuthAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
+    public FenixEduOAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
             String sessionVariableName, String applicationConfigurationPropertiesFilename) {
         this(providerManager, defaultFilterProcessesUrl, sessionVariableName, ApplicationConfiguration
-                .fromProperties(applicationConfigurationPropertiesFilename));
+                .fromPropertyFilename(applicationConfigurationPropertiesFilename));
     }
 
-    protected FenixEduOAuthAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
+    public FenixEduOAuthAuthenticationFilter(ProviderManager providerManager, String defaultFilterProcessesUrl,
             String sessionVariableName, ApplicationConfiguration applicationConfiguration) {
         super(defaultFilterProcessesUrl);
         setAuthenticationManager(providerManager);
@@ -48,6 +52,7 @@ public class FenixEduOAuthAuthAuthenticationFilter extends AbstractAuthenticatio
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
+        logger.debug("Attempting Authentication");
         checkFailedAuthentication(request);
         FenixEduClient client = FenixEduClientFactory.fromConfig(applicationConfiguration);
         String code = request.getParameter("code");
