@@ -2,17 +2,17 @@ package org.fenixedu.sdk.android;
 
 import org.fenixedu.sdk.FenixEduClient;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
-public class GetSpacesAsyncTask extends FenixEduAsyncTask<Void, JsonObject> {
+public class GetSpacesAsyncTask extends FenixEduAsyncTask<Void, JsonArray> {
 
     public GetSpacesAsyncTask(FenixEduClient client) {
         super(client);
     }
 
     @Override
-    protected JsonObject doInBackground(Void... params) {
-        return getClient().publicScope().getAcademicTerms();
+    protected JsonArray doInBackground(Void... params) {
+        return getClient().publicScope().getSpaces();
     }
 
 }

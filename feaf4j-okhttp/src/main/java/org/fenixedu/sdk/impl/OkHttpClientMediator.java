@@ -53,7 +53,7 @@ public class OkHttpClientMediator implements HttpClient {
             default:
                 throw new FenixEduClientException("Unhandled HttpMethod", null);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new FenixEduClientException("Error handling request", e);
         }
     }

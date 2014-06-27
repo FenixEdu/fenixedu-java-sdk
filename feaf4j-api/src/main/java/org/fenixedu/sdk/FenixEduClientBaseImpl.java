@@ -23,9 +23,13 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
 
     private final HttpClient client;
 
-    public FenixEduClientBaseImpl(ApplicationConfiguration config) {
+    public FenixEduClientBaseImpl(ApplicationConfiguration config) throws FenixEduClientException {
         this.config = config;
-        this.client = StaticHttpClientBinder.getSingleton().getHttpClientFactory().getHttpClient();
+        try {
+            this.client = StaticHttpClientBinder.getSingleton().getHttpClientFactory().getHttpClient();
+        } catch (Throwable e) {
+            throw new FenixEduClientException("Could not obtain HTTP client", e);
+        }
     }
 
     public String getAuthenticationUrl() {
