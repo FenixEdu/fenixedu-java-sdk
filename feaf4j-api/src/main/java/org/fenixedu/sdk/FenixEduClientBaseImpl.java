@@ -81,6 +81,12 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
     @SuppressWarnings("unchecked")
     protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Authorization authorization,
             Map<String, String> queryParams, String... endpointArgs) throws FenixEduClientException {
+
+        if (queryParams == null) {
+            queryParams = new HashMap<String, String>();
+        }
+        queryParams.put("lang", config.getLocale().getLanguage() + "-" + config.getLocale().getCountry());
+
         HttpRequest httpRequest =
                 RequestFactory.fromFenixEduEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
         if (authorization != null) {
