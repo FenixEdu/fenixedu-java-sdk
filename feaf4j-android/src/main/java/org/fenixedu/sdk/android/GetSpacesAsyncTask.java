@@ -11,7 +11,7 @@ public class GetSpacesAsyncTask extends FenixEduAsyncTask<Void, JsonArray> {
     }
 
     @Override
-    protected JsonArray doInBackground(Void... params) {
+    protected JsonArray executeInBackground(Void... params) {
         return getClient().publicScope().getSpaces();
     }
 

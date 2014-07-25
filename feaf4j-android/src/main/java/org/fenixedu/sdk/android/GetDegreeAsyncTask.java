@@ -15,7 +15,7 @@ public class GetDegreeAsyncTask extends FenixEduAsyncTask<String, JsonObject> {
     }
 
     @Override
-    protected JsonObject doInBackground(String... params) {
+    protected JsonObject executeInBackground(String... params) {
         return getClient().publicScope().getDegree(params[0]);
     }
 }

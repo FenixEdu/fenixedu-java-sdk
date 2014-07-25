@@ -15,7 +15,7 @@ public class GetPersonCoursesAsyncTask extends AuthorizedFenixEduAsyncTask<Strin
     }
 
     @Override
-    protected JsonObject doInBackground(String... params) {
+    protected JsonObject executeInBackground(String... params) {
         if (params.length == 0) {
             return getClient().getPersonCourses(getAuthorization());
         } else {

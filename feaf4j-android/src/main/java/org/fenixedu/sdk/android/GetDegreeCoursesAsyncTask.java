@@ -15,7 +15,7 @@ public class GetDegreeCoursesAsyncTask extends FenixEduAsyncTask<String, JsonArr
     }
 
     @Override
-    protected JsonArray doInBackground(String... params) {
+    protected JsonArray executeInBackground(String... params) {
         if (params.length == 1) {
             return getClient().publicScope().getDegreeCourses(params[0]);
         } else {

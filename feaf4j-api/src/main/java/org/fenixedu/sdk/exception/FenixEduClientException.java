@@ -16,6 +16,8 @@ public class FenixEduClientException extends RuntimeException {
 
     public FenixEduClientException(String message, Throwable cause) {
         super(message, cause);
+        this.error = message;
+        this.errorDescription = message;
         decode(message);
     }
 
@@ -28,6 +30,7 @@ public class FenixEduClientException extends RuntimeException {
                     this.errorDescription = jsonObject.get(ERROR_DESCRIPTION_KEY).getAsString();
                 }
             } catch (JsonParseException ignore) {
+
             }
         }
     }

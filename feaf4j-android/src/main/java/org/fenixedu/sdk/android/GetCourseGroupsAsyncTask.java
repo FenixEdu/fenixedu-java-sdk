@@ -17,7 +17,7 @@ public class GetCourseGroupsAsyncTask extends FenixEduAsyncTask<String, JsonObje
     }
 
     @Override
-    protected JsonObject doInBackground(String... params) {
+    protected JsonObject executeInBackground(String... params) {
         return getClient().publicScope().getCourseStudents(params[0]);
     }
 

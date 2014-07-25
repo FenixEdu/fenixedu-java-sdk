@@ -9,7 +9,7 @@ public class GetSpaceBlueprintAsyncTask extends FenixEduAsyncTask<String, byte[]
     }
 
     @Override
-    protected byte[] doInBackground(String... params) {
+    protected byte[] executeInBackground(String... params) {
         return getClient().publicScope().getSpaceBlueprint(params[0]);
     }
 }

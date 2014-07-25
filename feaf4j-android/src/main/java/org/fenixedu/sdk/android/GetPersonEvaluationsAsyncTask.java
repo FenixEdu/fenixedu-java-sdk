@@ -12,7 +12,7 @@ public class GetPersonEvaluationsAsyncTask extends AuthorizedFenixEduAsyncTask<V
     }
 
     @Override
-    protected JsonArray doInBackground(Void... params) {
+    protected JsonArray executeInBackground(Void... params) {
         return getClient().getPersonEvaluations(getAuthorization());
     }
 }

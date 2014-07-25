@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.fenixedu</groupId>
         <artifactId>feaf4j</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
     </parent>
 
     <artifactId>feaf4j-android</artifactId>
@@ -14,7 +14,6 @@
     <name>FenixEdu Java SDK Android</name>
 
     <properties>
-        <version.org.fenixedu.feaf4j>2.0.0</version.org.fenixedu.feaf4j>
         <version.com.google.android>4.1.1.4</version.com.google.android>
     </properties>
 
@@ -22,7 +21,7 @@
         <dependency>
             <groupId>org.fenixedu</groupId>
             <artifactId>feaf4j-api</artifactId>
-            <version>${version.org.fenixedu.feaf4j}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.android</groupId>

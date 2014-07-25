@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 
 public class GetFenixEduClientAsyncTask extends AsyncTask<Void, Void, FenixEduClient> {
 
-    private ApplicationConfiguration config;
+    private final ApplicationConfiguration config;
 
     public GetFenixEduClientAsyncTask(ApplicationConfiguration config) {
         this.config = config;

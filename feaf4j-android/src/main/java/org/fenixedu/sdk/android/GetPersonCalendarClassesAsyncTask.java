@@ -17,7 +17,7 @@ public class GetPersonCalendarClassesAsyncTask extends AuthorizedFenixEduAsyncTa
     }
 
     @Override
-    protected JsonObject doInBackground(CalendarFormat... params) {
+    protected JsonObject executeInBackground(CalendarFormat... params) {
         return getClient().getPersonCalendarClasses(getAuthorization(), params[0]);
     }
 }

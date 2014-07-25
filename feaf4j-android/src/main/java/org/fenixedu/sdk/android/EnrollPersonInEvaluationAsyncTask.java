@@ -12,7 +12,7 @@ public class EnrollPersonInEvaluationAsyncTask extends AuthorizedFenixEduAsyncTa
 
     /**
      * A task that enrolls the student with the given authorization in an evaluation identified by the provided id.
-     * 
+     *
      * @param client the fenixedu client singleton instance.
      * @param authorization the authorization identifying the student to be enrolled.
      * @param evaluationId the evaluation id to enroll the student in.
@@ -24,11 +24,11 @@ public class EnrollPersonInEvaluationAsyncTask extends AuthorizedFenixEduAsyncTa
 
     /**
      * Enrolls a student in an evaluation.
-     * 
+     *
      * @param params should receive a single EnrolAction
      */
     @Override
-    protected JsonArray doInBackground(EnrolAction... params) {
+    protected JsonArray executeInBackground(EnrolAction... params) {
         return getClient().enrollPersonInEvaluation(getAuthorization(), evaluationId, params[0]);
     }
 }
