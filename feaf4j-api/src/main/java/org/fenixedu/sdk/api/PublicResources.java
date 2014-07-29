@@ -11,6 +11,8 @@ public interface PublicResources {
 
     JsonObject getAcademicTerms();
 
+    JsonObject getCanteen();
+
     JsonObject getCourse(String courseId);
 
     JsonArray getCourseEvaluations(String courseId);
@@ -32,6 +34,8 @@ public interface PublicResources {
     JsonArray getDegreeCourses(String degreeId);
 
     JsonArray getDegreeCourses(String degreeId, String academicTerm);
+
+    JsonObject getShuttle();
 
     JsonArray getSpaces();
 

@@ -55,14 +55,14 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the university news and events RSS feed urls.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Public
      * </p>
-     * 
-     * 
+     *
+     *
      * @return the urls for the university news and events RSS
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException description
      */
     @Override
     public JsonObject getAbout() {
@@ -71,13 +71,13 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains information about the person in context.
-     * 
-     * </p>
+     *
+     * <p>
      * <b>Scope:</b> Info
      * </p>
-     * 
+     *
      * @return information about the person
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPerson(Authorization authorization) {
@@ -86,9 +86,9 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains information about the curriculum of the person in session.
-     * 
+     *
      * @return information about the person curriculum
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getPersonCurriculum(Authorization authorization) {
@@ -97,15 +97,15 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains a calendar with lessons of either the student or the faculty in context.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Schedule
      * </p>
-     * 
+     *
      * @param format
      *            the response format, which can either be iCal or JSON.
      * @return the calendar with classes in the format requested.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPersonCalendarClasses(Authorization authorization, CalendarFormat format) {
@@ -117,15 +117,15 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     /**
      * Obtains the calendar of all written evaluations (tests and exams) for
      * either a student or a faculty.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Schedule
      * </p>
-     * 
+     *
      * @param format
      *            the response format, which can either be iCal or JSON.
      * @return the calendar with classes in the format requested.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPersonCalendarEvaluations(Authorization authorization, CalendarFormat format) {
@@ -141,17 +141,17 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Enrolls or withdraws the student from a given evaluation.
-     * 
+     *
      * <p>
      * <b>Scope</b>: Enrollments
      * </p>
-     * 
+     *
      * @param evaluationId
      *            the id of the evaluation to enroll in or withdraw from.
      * @param action
      *            the enroll or withdraw action.
      * @return the array of evaluations of the student
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray enrollPersonInEvaluation(Authorization authorization, String evaluationId, EnrolAction action) {
@@ -162,13 +162,13 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the payments for the current person in context.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Personal
      * </p>
-     * 
+     *
      * @return the payments of the person.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPersonPayments(Authorization authorization) {
@@ -177,10 +177,10 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains information about the course identified with the given id.
-     * 
+     *
      * @param courseId the id of the course to obtain information about
      * @return information about the course with the given id.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getCourse(String courseId) {
@@ -189,10 +189,10 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the course evaluations for the course identified with the given id
-     * 
+     *
      * @param courseId the id of the course to retrieve the course evaluations
      * @return information about the courses evaluations of the given id
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getCourseEvaluations(String courseId) {
@@ -201,10 +201,10 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains information about the course groups for the course with the given id.
-     * 
+     *
      * @param courseId the id of the course to retrieve the groups information from
      * @return information about course groups
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getCourseGroups(String courseId) {
@@ -213,14 +213,14 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains schedule information about the course identified by the given id.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Courses
      * </p>
-     * 
+     *
      * @param courseId the id of the course to obtain the schedule information from
      * @return information about the course schedule
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getCourseSchedule(String courseId) {
@@ -229,10 +229,10 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the student list for the course identified by the given id.
-     * 
+     *
      * @param courseId the id of the course to obtain the student list
      * @return the list of course students
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getCourseStudents(String courseId) {
@@ -241,9 +241,9 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains an array containing both campus spaces.
-     * 
+     *
      * @return the array of both campus spaces.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getSpaces() {
@@ -253,15 +253,15 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     /**
      * Obtains space information regarding space type (Campus, Building, Floor
      * or Room)
-     * 
+     *
      * @param spaceId
      *            the id of the space
      * @param day
      *            the day for which the events should be listed for that room
      *            (e.g. "dd/mm/yyyy")
-     * 
+     *
      * @return information regarding the space at a particular day
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getSpace(String spaceId, String day) {
@@ -272,7 +272,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the degrees associated to the current academic term.
-     * 
+     *
      * @return a JsonArray describing the courses of the current academic term.
      */
     @Override
@@ -281,13 +281,33 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     }
 
     /**
+     * Obtains the canteen information.
+     *
+     * @return a JsonObject with the canteen information.
+     */
+    @Override
+    public JsonObject getCanteen() {
+        return invoke(FenixEduEndpoint.CANTEEN);
+    }
+
+    /**
+     * Obtains the shuttle information.
+     *
+     * @return a JsonObject with the shuttle information.
+     */
+    @Override
+    public JsonObject getShuttle() {
+        return invoke(FenixEduEndpoint.SHUTTLE);
+    }
+
+    /**
      * Obtains the degrees associated to a particular academic term.
-     * 
+     *
      * @param academicTerm
      *            the representative string of the execution year you wish to
      *            retrieve the courses from (e.g. 2003/2004)
      * @return a JsonArray describing the courses for the provided academic term.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getDegrees(String academicTerm) {
@@ -299,17 +319,17 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     /**
      * Retrieves information about the degree with the given id, in a particular execution
      * year.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Public
      * </p>
-     * 
+     *
      * @param degreeId
      *            the degree id
      * @param academicTerm
      *            the academic term to retrieve the information of the degree
-     * @return
-     * @throws FenixEduClientException
+     * @return degree
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getDegree(String degreeId, String academicTerm) {
@@ -320,15 +340,14 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Retrieves information about the degree courses, in a particular academic term.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Public
      * </p>
-     * 
+     *
      * @param degreeId the id of the degree
-     * @param year the execution year (e.g. 2010/2011)
      * @return a JsonArray with all the degree courses within the specified academic term.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getDegreeCourses(String degreeId) {
@@ -337,15 +356,15 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Retrieves information about the degree courses, in a particular academic term.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Public
      * </p>
-     * 
+     *
      * @param degreeId the id of the degree
-     * @param year the execution year (e.g. 2010/2011)
+     * @param academicTerm the execution year (e.g. 2010/2011)
      * @return a JsonArray with all the degree courses within the specified academic term.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonArray getDegreeCourses(String degreeId, String academicTerm) {
@@ -356,15 +375,13 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     /**
      * Obtains the courses of the user in context for the current academic term.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Enrollments
      * </p>
-     * 
-     * @param academicTerm
-     *            the academic term (e.g. 2003/2004)
+     *
      * @return both the courses that the person is teaching and/or enrolled on.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPersonCourses(Authorization authorization) {
@@ -374,15 +391,15 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     /**
      * Obtains the courses of the user in context for a particular execution
      * year and semester.
-     * 
+     *
      * <p>
      * <b>Scope:</b> Enrollments
      * </p>
-     * 
+     *
      * @param academicTerm
      *            the academic term (e.g. "2003/2004")
      * @return both the courses that the person is teaching or enrolled on.
-     * @throws FenixEduClientException
+     * @throws FenixEduClientException .
      */
     @Override
     public JsonObject getPersonCourses(Authorization authorization, String academicTerm) {
