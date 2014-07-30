@@ -21,10 +21,10 @@ public enum FenixEduEndpoint {
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
 
     COURSE("course", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
-            "course/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(
-            "course/%s/groups", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_SCHEDULE(
-            "course/%s/schedule", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_STUDENTS(
-            "course/%s/students", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
+            "courses/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(
+            "courses/%s/groups", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_SCHEDULE(
+            "courses/%s/schedule", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_STUDENTS(
+            "courses/%s/students", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
 
     DEGREES("degrees", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), DEGREE("degrees/%s",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), DEGREE_COURSES("degrees/%s/courses",

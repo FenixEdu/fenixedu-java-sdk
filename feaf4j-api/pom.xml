@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.fenixedu</groupId>
         <artifactId>feaf4j</artifactId>
-        <version>2.1.1</version>
+        <version>2.1.2</version>
     </parent>
 
     <artifactId>feaf4j-api</artifactId>
