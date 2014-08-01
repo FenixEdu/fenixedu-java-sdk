@@ -75,7 +75,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
 
     protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Map<String, String> queryParams, String... endpointArgs)
             throws FenixEduClientException {
-        return invoke(endpoint, null, null, endpointArgs);
+        return invoke(endpoint, null, queryParams, endpointArgs);
     }
 
     @SuppressWarnings("unchecked")
