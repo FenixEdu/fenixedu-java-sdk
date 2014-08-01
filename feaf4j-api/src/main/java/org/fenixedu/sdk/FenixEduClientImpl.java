@@ -271,6 +271,22 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     }
 
     /**
+     * Obtains space information regarding space type (Campus, Building, Floor
+     * or Room)
+     *
+     * @param spaceId
+     *            the id of the space
+     *
+     *
+     * @return information regarding the space at a particular day
+     * @throws FenixEduClientException .
+     */
+    @Override
+    public JsonObject getSpace(String spaceId) {
+        return invoke(FenixEduEndpoint.SPACE, spaceId);
+    }
+
+    /**
      * Obtains the degrees associated to the current academic term.
      *
      * @return a JsonArray describing the courses of the current academic term.

@@ -12,7 +12,11 @@ public class GetSpaceAsyncTask extends FenixEduAsyncTask<String, JsonObject> {
 
     @Override
     protected JsonObject executeInBackground(String... params) {
-        return getClient().publicScope().getSpace(params[0], params[1]);
+        if (params.length == 1) {
+            return getClient().publicScope().getSpace(params[0]);
+        } else if (params.length == 2) {
+            return getClient().publicScope().getSpace(params[0], params[1]);
+        }
+        return new JsonObject();
     }
-
 }

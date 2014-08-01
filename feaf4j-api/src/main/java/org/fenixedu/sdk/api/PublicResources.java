@@ -39,6 +39,8 @@ public interface PublicResources {
 
     JsonArray getSpaces();
 
+    JsonObject getSpace(String spaceId);
+
     JsonObject getSpace(String spaceId, String day);
 
     byte[] getSpaceBlueprint(String spaceId);
