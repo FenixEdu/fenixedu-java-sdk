@@ -105,10 +105,12 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
             }
         } catch (FenixEduClientException e) {
             //TODO: Maybe use inheritance to differentiate exception
-            if (e.getError().equals("accessTokenExpired")) {
+            /*
+             if (e.getError().equals("accessTokenExpired")) {
                 Authorization newAuthorization = refreshAccessToken(authorization);
                 return invoke(endpoint, newAuthorization, queryParams, endpointArgs);
             }
+             */
             throw e;
         }
     }
