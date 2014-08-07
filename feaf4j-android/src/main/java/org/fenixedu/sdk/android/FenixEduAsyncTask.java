@@ -14,6 +14,11 @@ public abstract class FenixEduAsyncTask<P, T> extends AsyncTask<P, Void, T> {
         this.client = client;
     }
 
+    public FenixEduAsyncTask(FenixEduClient client, PostExecuteCallback<T> postExecuteCallback) {
+        this.client = client;
+        this.postExecuteCallback = postExecuteCallback;
+    }
+
     public FenixEduClient getClient() {
         return client;
     }
@@ -31,12 +36,6 @@ public abstract class FenixEduAsyncTask<P, T> extends AsyncTask<P, Void, T> {
     }
 
     protected abstract T executeInBackground(P... params);
-
-    @SuppressWarnings("unchecked")
-    public final void execute(PostExecuteCallback<T> postExecuteCallback, P... params) {
-        this.postExecuteCallback = postExecuteCallback;
-        this.execute(params);
-    }
 
     @Override
     protected void onPostExecute(T result) {

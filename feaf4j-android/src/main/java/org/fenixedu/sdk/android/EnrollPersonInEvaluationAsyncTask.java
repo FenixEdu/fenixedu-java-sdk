@@ -22,6 +22,12 @@ public class EnrollPersonInEvaluationAsyncTask extends AuthorizedFenixEduAsyncTa
         this.evaluationId = evaluationId;
     }
 
+    public EnrollPersonInEvaluationAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback,
+            Authorization authorization, String evaluationId) {
+        super(client, postExecuteCallback, authorization);
+        this.evaluationId = evaluationId;
+    }
+
     /**
      * Enrolls a student in an evaluation.
      *

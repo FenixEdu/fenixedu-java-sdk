@@ -14,6 +14,10 @@ public class GetDegreesAsyncTask extends FenixEduAsyncTask<Void, JsonArray> {
         super(client);
     }
 
+    public GetDegreesAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback) {
+        super(client, postExecuteCallback);
+    }
+
     @Override
     protected JsonArray executeInBackground(Void... params) {
         return getClient().publicScope().getDegrees();

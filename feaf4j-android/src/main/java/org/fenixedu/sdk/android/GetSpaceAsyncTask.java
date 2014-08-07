@@ -10,6 +10,10 @@ public class GetSpaceAsyncTask extends FenixEduAsyncTask<String, JsonObject> {
         super(client);
     }
 
+    public GetSpaceAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback) {
+        super(client, postExecuteCallback);
+    }
+
     @Override
     protected JsonObject executeInBackground(String... params) {
         if (params.length == 1) {

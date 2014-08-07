@@ -15,6 +15,10 @@ public class GetCourseEvaluationsAsyncTask extends FenixEduAsyncTask<String, Jso
         super(client);
     }
 
+    public GetCourseEvaluationsAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback) {
+        super(client, postExecuteCallback);
+    }
+
     @Override
     protected JsonArray executeInBackground(String... params) {
         return getClient().publicScope().getCourseEvaluations(params[0]);

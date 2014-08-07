@@ -10,6 +10,10 @@ public class GetDomainModelAsyncTask extends FenixEduAsyncTask<Void, JsonObject>
         super(client);
     }
 
+    public GetDomainModelAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback) {
+        super(client, postExecuteCallback);
+    }
+
     @Override
     protected JsonObject executeInBackground(Void... params) {
         return getClient().publicScope().getDomainModel();

@@ -12,6 +12,12 @@ public abstract class AuthorizedFenixEduAsyncTask<P, T> extends FenixEduAsyncTas
         this.authorization = authorization;
     }
 
+    public AuthorizedFenixEduAsyncTask(FenixEduClient client, PostExecuteCallback<T> postExecuteCallback,
+            Authorization authorization) {
+        super(client, postExecuteCallback);
+        this.authorization = authorization;
+    }
+
     public Authorization getAuthorization() {
         return this.authorization;
     }

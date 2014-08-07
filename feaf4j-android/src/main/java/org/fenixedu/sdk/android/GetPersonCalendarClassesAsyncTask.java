@@ -16,6 +16,11 @@ public class GetPersonCalendarClassesAsyncTask extends AuthorizedFenixEduAsyncTa
         super(client, authorization);
     }
 
+    public GetPersonCalendarClassesAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback,
+            Authorization authorization) {
+        super(client, postExecuteCallback, authorization);
+    }
+
     @Override
     protected JsonObject executeInBackground(CalendarFormat... params) {
         return getClient().getPersonCalendarClasses(getAuthorization(), params[0]);

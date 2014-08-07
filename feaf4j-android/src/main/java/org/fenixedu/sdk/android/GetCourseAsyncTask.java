@@ -17,6 +17,10 @@ public class GetCourseAsyncTask extends FenixEduAsyncTask<String, JsonObject> {
         super(client);
     }
 
+    public GetCourseAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback) {
+        super(client, postExecuteCallback);
+    }
+
     @Override
     protected JsonObject executeInBackground(String... params) {
         return getClient().publicScope().getCourse(params[0]);

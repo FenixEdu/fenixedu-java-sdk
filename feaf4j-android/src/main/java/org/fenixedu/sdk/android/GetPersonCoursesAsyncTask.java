@@ -14,6 +14,10 @@ public class GetPersonCoursesAsyncTask extends AuthorizedFenixEduAsyncTask<Strin
         super(client, authorization);
     }
 
+    public GetPersonCoursesAsyncTask(FenixEduClient client, PostExecuteCallback postExecuteCallback, Authorization authorization) {
+        super(client, postExecuteCallback, authorization);
+    }
+
     @Override
     protected JsonObject executeInBackground(String... params) {
         if (params.length == 0) {
