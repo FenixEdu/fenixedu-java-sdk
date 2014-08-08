@@ -66,7 +66,12 @@ public class OkHttpClientMediator implements HttpClient {
         InputStream in = null;
         try {
             HttpURLConnection connection = client.open(new URL(url));
-            in = connection.getInputStream();
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                in = connection.getErrorStream();
+            } else {
+                in = connection.getInputStream();
+            }
             return new ClientResponse(Status.fromStatusCode(connection.getResponseCode()), readStringFromInputStream(in));
         } catch (IOException e) {
             throw new FenixEduClientException("Problem in handling GET request", e);
@@ -82,6 +87,9 @@ public class OkHttpClientMediator implements HttpClient {
     }
 
     private String readStringFromInputStream(InputStream inputStream) throws IOException {
+        if (inputStream == null) {
+            return "";
+        }
         BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder result = new StringBuilder();
         String line;
@@ -108,12 +116,12 @@ public class OkHttpClientMediator implements HttpClient {
                 out.write(postRequest.getBody());
                 out.close();
             }
+            connection.connect();
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                String errorMessage = readStringFromInputStream(connection.getErrorStream());
-                logger.debug("FenixEdu responded: {}", errorMessage);
-                throw new FenixEduClientException(errorMessage, null);
+                in = connection.getErrorStream();
+            } else {
+                in = connection.getInputStream();
             }
-            in = connection.getInputStream();
             return new ClientResponse(Status.fromStatusCode(connection.getResponseCode()), readStringFromInputStream(in));
         } catch (FenixEduClientException e) {
             logger.error("Could not handle POST request", url, e);

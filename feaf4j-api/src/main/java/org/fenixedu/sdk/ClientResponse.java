@@ -19,7 +19,7 @@ public class ClientResponse {
     }
 
     public enum Status {
-        OK(200, "OK"), CREATED(201, "Created"), BAD_REQUEST(400, "Bad Request");
+        OK(200, "OK"), CREATED(201, "Created"), BAD_REQUEST(400, "Bad Request"), UNAUTHORIZED(401, "Unauthorized");
 
         private final int statusCode;
         private final String description;
@@ -45,6 +45,8 @@ public class ClientResponse {
                 return CREATED;
             case 400:
                 return BAD_REQUEST;
+            case 401:
+                return UNAUTHORIZED;
             }
             return null;
         }

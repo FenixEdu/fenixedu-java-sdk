@@ -94,6 +94,10 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         }
         try {
             ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
+            if (clientResponse.getStatusCode() == 401) {
+                throw new FenixEduClientException(new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject()
+                        .get("error").getAsString(), null);
+            }
             if (endpoint.getResponseClass().equals(JsonArray.class)) {
                 return (T) new JsonParser().parse(clientResponse.getResponse()).getAsJsonArray();
             } else if (endpoint.getResponseClass().equals(JsonObject.class)) {
@@ -127,9 +131,12 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         HttpRequest httpRequest =
                 RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN).withBody(
                         Joiner.getEncodedQueryParams(queryParams));
-        System.out.println(httpRequest.getUrl());
-        System.out.println(new String(httpRequest.getBody()));
+
         ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
+        if (clientResponse.getStatusCode() == 401) {
+            throw new FenixEduClientException(new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject().get("error")
+                    .getAsString(), null);
+        }
         if (FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN.getResponseClass().equals(JsonObject.class)) {
             JsonObject responseJson = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
             String newAccessToken = responseJson.get("access_token").getAsString();
