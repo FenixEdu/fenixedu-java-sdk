@@ -2,13 +2,13 @@ package org.fenixedu.sdk.android;
 
 import org.fenixedu.sdk.FenixEduClient;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 /**
  * This endpoint returns the information for canteen.
  *
  */
-public class GetCanteenAsyncTask extends FenixEduAsyncTask<Void, JsonObject> {
+public class GetCanteenAsyncTask extends FenixEduAsyncTask<String, JsonArray> {
 
     public GetCanteenAsyncTask(FenixEduClient client) {
         super(client);
@@ -19,8 +19,8 @@ public class GetCanteenAsyncTask extends FenixEduAsyncTask<Void, JsonObject> {
     }
 
     @Override
-    protected JsonObject executeInBackground(Void... params) {
-        return getClient().publicScope().getCanteen();
+    protected JsonArray executeInBackground(String... params) {
+        return getClient().publicScope().getCanteen(params[0]);
     }
 
 }

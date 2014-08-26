@@ -18,7 +18,7 @@ public enum FenixEduEndpoint {
     ABOUT("about", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), DOMAIN_MODEL("domainModel",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS("academicterms",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), CANTEEN("canteen", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
+            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class),
 
     COURSE("course", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
             "courses/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(

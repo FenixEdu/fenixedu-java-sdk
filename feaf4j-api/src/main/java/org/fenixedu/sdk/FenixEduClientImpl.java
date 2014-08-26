@@ -302,8 +302,20 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      * @return a JsonObject with the canteen information.
      */
     @Override
-    public JsonObject getCanteen() {
+    public JsonArray getCanteen() {
         return invoke(FenixEduEndpoint.CANTEEN);
+    }
+
+    /**
+     * Obtains the canteen information.
+     *
+     * @return a JsonObject with the canteen information.
+     */
+    @Override
+    public JsonArray getCanteen(String day) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("day", day);
+        return invoke(FenixEduEndpoint.CANTEEN, params);
     }
 
     /**
