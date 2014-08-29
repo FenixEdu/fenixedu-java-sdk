@@ -20,7 +20,7 @@ public enum FenixEduEndpoint {
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), CANTEEN("canteen", Scope.PUBLIC,
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class),
 
-    COURSE("course", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
+    COURSE("courses/%s", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
             "courses/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(
             "courses/%s/groups", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_SCHEDULE(
             "courses/%s/schedule", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_STUDENTS(
