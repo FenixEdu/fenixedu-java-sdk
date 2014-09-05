@@ -15,6 +15,8 @@ public interface PublicResources {
 
     JsonArray getCanteen(String day);
 
+    JsonArray getContacts();
+
     JsonObject getCourse(String courseId);
 
     JsonArray getCourseEvaluations(String courseId);

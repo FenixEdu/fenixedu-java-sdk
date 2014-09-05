@@ -319,6 +319,16 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     }
 
     /**
+     * Obtains the contacts information.
+     *
+     * @return a JsonObject with the contacts information.
+     */
+    @Override
+    public JsonArray getContacts() {
+        return invoke(FenixEduEndpoint.CONTACTS);
+    }
+
+    /**
      * Obtains the shuttle information.
      *
      * @return a JsonObject with the shuttle information.
