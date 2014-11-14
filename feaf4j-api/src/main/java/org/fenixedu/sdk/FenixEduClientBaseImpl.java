@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.api.FenixEduEndpoint;
+import org.fenixedu.sdk.exception.ExceptionFactory;
 import org.fenixedu.sdk.exception.FenixEduClientException;
 import org.fenixedu.sdk.impl.StaticHttpClientBinder;
 import org.slf4j.Logger;
@@ -92,31 +93,23 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         if (authorization != null) {
             httpRequest.withAuthorization(authorization);
         }
-        try {
-            ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
-            if (clientResponse.getStatusCode() == 401) {
-                throw new FenixEduClientException(new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject()
-                        .get("error").getAsString(), null);
-            }
-            if (endpoint.getResponseClass().equals(JsonArray.class)) {
-                return (T) new JsonParser().parse(clientResponse.getResponse()).getAsJsonArray();
-            } else if (endpoint.getResponseClass().equals(JsonObject.class)) {
-                return (T) new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
-            } else if (endpoint.getResponseClass().equals(File.class)) {
-                return (T) clientResponse.getResponse().getBytes();
-            } else {
-                throw new FenixEduClientException("Could not identify return type", null);
-            }
-        } catch (FenixEduClientException e) {
-            //TODO: Maybe use inheritance to differentiate exception
-            /*
-             if (e.getError().equals("accessTokenExpired")) {
-                Authorization newAuthorization = refreshAccessToken(authorization);
-                return invoke(endpoint, newAuthorization, queryParams, endpointArgs);
-            }
-             */
-            throw e;
+        ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
+        if (clientResponse.getStatusCode() == 401) {
+            JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+            String error = jsonResponse.get("error").getAsString();
+            String errorDescription = jsonResponse.get("error_description").getAsString();
+            throw ExceptionFactory.createException(error, errorDescription);
         }
+        if (endpoint.getResponseClass().equals(JsonArray.class)) {
+            return (T) new JsonParser().parse(clientResponse.getResponse()).getAsJsonArray();
+        } else if (endpoint.getResponseClass().equals(JsonObject.class)) {
+            return (T) new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+        } else if (endpoint.getResponseClass().equals(File.class)) {
+            return (T) clientResponse.getResponse().getBytes();
+        } else {
+            throw new FenixEduClientException("Could not identify return type", null);
+        }
+
     }
 
     public Authorization refreshAccessToken(Authorization authorization) {

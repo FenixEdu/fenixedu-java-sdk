@@ -16,9 +16,13 @@ public class FenixEduClientException extends RuntimeException {
 
     public FenixEduClientException(String message, Throwable cause) {
         super(message, cause);
-        this.error = message;
-        this.errorDescription = message;
-        decode(message);
+        //this.error = message;
+        //this.errorDescription = message;
+        //decode(message);
+    }
+
+    public FenixEduClientException(String message) {
+        this(message, null);
     }
 
     private void decode(String str) {
