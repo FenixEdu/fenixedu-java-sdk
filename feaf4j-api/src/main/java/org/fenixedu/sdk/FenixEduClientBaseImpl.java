@@ -127,8 +127,9 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
 
         ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
         if (clientResponse.getStatusCode() == 401) {
-            throw new FenixEduClientException(new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject().get("error")
-                    .getAsString(), null);
+            JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+            String error = jsonResponse.get("error").getAsString();
+            throw ExceptionFactory.createException(error, null);
         }
         if (FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN.getResponseClass().equals(JsonObject.class)) {
             JsonObject responseJson = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();

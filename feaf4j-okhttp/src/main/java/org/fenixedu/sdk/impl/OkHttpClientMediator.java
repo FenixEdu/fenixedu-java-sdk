@@ -1,12 +1,6 @@
 package org.fenixedu.sdk.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import org.fenixedu.sdk.ClientResponse;
 import org.fenixedu.sdk.ClientResponse.Status;
@@ -16,7 +10,11 @@ import org.fenixedu.sdk.exception.FenixEduClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 public class OkHttpClientMediator implements HttpClient {
 
@@ -25,6 +23,8 @@ public class OkHttpClientMediator implements HttpClient {
     private final OkHttpClient client;
 
     private final static OkHttpClientMediator SINGLETON = new OkHttpClientMediator();
+
+    private final static MediaType MEDIA_TYPE = MediaType.parse("application/x-www-form-urlencoded");
 
     private OkHttpClientMediator() {
         logger.debug("Instantiating OkHttpClient...");
@@ -63,77 +63,21 @@ public class OkHttpClientMediator implements HttpClient {
 
     private ClientResponse handleGetRequest(String url, HttpRequest httpRequest) {
         logger.debug("HTTP Request delegated to GET handler");
-        InputStream in = null;
         try {
-            HttpURLConnection connection = client.open(new URL(url));
-
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                in = connection.getErrorStream();
-            } else {
-                in = connection.getInputStream();
-            }
-            return new ClientResponse(Status.fromStatusCode(connection.getResponseCode()), readStringFromInputStream(in));
+            Request request = new Request.Builder().url(url).build();
+            Response response = client.newCall(request).execute();
+            return new ClientResponse(Status.fromStatusCode(response.code()), response.body().string());
         } catch (IOException e) {
             throw new FenixEduClientException("Problem in handling GET request", e);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    throw new FenixEduClientException("Problem in closing input stream opened during GET request", e);
-                }
-            }
         }
-    }
-
-    private String readStringFromInputStream(InputStream inputStream) throws IOException {
-        if (inputStream == null) {
-            return "";
-        }
-        BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder result = new StringBuilder();
-        String line;
-        while ((line = r.readLine()) != null) {
-            result.append(line);
-        }
-        return result.toString();
     }
 
     private ClientResponse handlePostRequest(String url, HttpRequest postRequest) throws Exception {
         logger.debug("HTTP Request delegated to POST handler");
-        HttpURLConnection connection = client.open(new URL(url));
-        if (postRequest.getQueryParams() != null) {
-            for (String key : postRequest.getQueryParams().keySet()) {
-                connection.addRequestProperty(key, postRequest.getQueryParams().get(key));
-            }
-        }
-        OutputStream out = null;
-        InputStream in = null;
-        try {
-            connection.setRequestMethod("POST");
-            if (postRequest.getBody() != null) {
-                out = connection.getOutputStream();
-                out.write(postRequest.getBody());
-                out.close();
-            }
-            connection.connect();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                in = connection.getErrorStream();
-            } else {
-                in = connection.getInputStream();
-            }
-            return new ClientResponse(Status.fromStatusCode(connection.getResponseCode()), readStringFromInputStream(in));
-        } catch (FenixEduClientException e) {
-            logger.error("Could not handle POST request", url, e);
-            throw e;
-        } finally {
-            // Clean up.
-            if (out != null) {
-                out.close();
-            }
-            if (in != null) {
-                in.close();
-            }
-        }
+        RequestBody body = RequestBody.create(MEDIA_TYPE, postRequest.getBody());
+        Request request = new Request.Builder().url(url).post(body).build();
+        Response response = client.newCall(request).execute();
+        return new ClientResponse(Status.fromStatusCode(response.code()), response.body().string());
+
     }
 }
