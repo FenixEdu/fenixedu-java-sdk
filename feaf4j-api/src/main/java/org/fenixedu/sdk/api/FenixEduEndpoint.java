@@ -19,7 +19,7 @@ public enum FenixEduEndpoint {
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS("academicterms",
             Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), CANTEEN("canteen", Scope.PUBLIC,
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), CONTACTS("contacts", Scope.PUBLIC, HttpMethod.GET,
-                                    MediaType.APPLICATION_JSON, JsonArray.class),
+            MediaType.APPLICATION_JSON, JsonArray.class),
 
     COURSE("courses/%s", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
             "courses/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(
@@ -41,10 +41,11 @@ public enum FenixEduEndpoint {
             Scope.EVALUATION, HttpMethod.PUT, MediaType.APPLICATION_JSON, JsonObject.class), PERSON_PAYMENTS("person/payments",
             Scope.PAYMENT, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
 
-    SHUTTLE("shuttle", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACES("spaces",
-            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), SPACE("spaces/%s", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACE_BLUEPRINT("spaces/%s/blueprint", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, File.class);
+    SHUTTLE("shuttle", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), PARKING("parking",
+            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACES("spaces", Scope.PUBLIC,
+            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), SPACE("spaces/%s", Scope.PUBLIC, HttpMethod.GET,
+            MediaType.APPLICATION_JSON, JsonObject.class), SPACE_BLUEPRINT("spaces/%s/blueprint", Scope.PUBLIC, HttpMethod.GET,
+            MediaType.APPLICATION_JSON, File.class);
 
     private String pathRegex;
     private Scope scope;

@@ -329,6 +329,16 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     }
 
     /**
+     * Obtains the parking information.
+     *
+     * @return a JsonObject with the parking information.
+     */
+    @Override
+    public JsonObject getParking() {
+        return invoke(FenixEduEndpoint.PARKING);
+    }
+
+    /**
      * Obtains the shuttle information.
      *
      * @return a JsonObject with the shuttle information.
