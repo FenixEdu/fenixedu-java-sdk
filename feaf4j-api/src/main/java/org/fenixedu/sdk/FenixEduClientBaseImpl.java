@@ -1,6 +1,8 @@
 package org.fenixedu.sdk;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
     public final FenixEduUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
-        queryParams.put("client_secret", this.config.getOAuthConsumerSecret());
+        queryParams.put("client_secret", getEncodedSecret());
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("code", code);
         queryParams.put("grant_type", "authorization_code");
@@ -117,7 +119,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("grant_type", "refresh_token");
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
-        queryParams.put("client_secret", this.config.getOAuthConsumerSecret());
+        queryParams.put("client_secret", getEncodedSecret());
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("refresh_token", authorization.asOAuthAuthorization().getOAuthRefreshToken());
 
@@ -138,6 +140,16 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         } else {
             throw new FenixEduClientException("Unexpected return type", null);
         }
+    }
+
+    private String getEncodedSecret() {
+        String secret;
+        try {
+            secret = URLEncoder.encode(this.config.getOAuthConsumerSecret(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            secret = this.config.getOAuthConsumerSecret();
+        }
+        return secret;
     }
 
     @Override
