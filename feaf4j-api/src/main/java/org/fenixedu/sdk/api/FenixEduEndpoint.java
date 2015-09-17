@@ -15,11 +15,12 @@ public enum FenixEduEndpoint {
     OAUTH_ACCESS_TOKEN("/oauth/access_token", Scope.AUTH, HttpMethod.POST, MediaType.APPLICATION_JSON, JsonObject.class),
     OAUTH_REFRESH_ACCESS_TOKEN("/oauth/refresh_token", Scope.AUTH, HttpMethod.POST, MediaType.APPLICATION_JSON, JsonObject.class),
 
-    ABOUT("about", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), DOMAIN_MODEL("domainModel",
-            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS("academicterms",
-            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), CANTEEN("canteen", Scope.PUBLIC,
-            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), CONTACTS("contacts", Scope.PUBLIC, HttpMethod.GET,
-            MediaType.APPLICATION_JSON, JsonArray.class),
+    ABOUT("about", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ASSIDUITY(
+            "employeeAssiduity/employee", Scope.ASSIDUITY, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
+    DOMAIN_MODEL("domainModel", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), ACADEMIC_TERMS(
+            "academicterms", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), CANTEEN("canteen",
+            Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), CONTACTS("contacts", Scope.PUBLIC,
+            HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class),
 
     COURSE("courses/%s", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), COURSE_EVALUATIONS(
             "courses/%s/evaluations", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), COURSE_GROUPS(

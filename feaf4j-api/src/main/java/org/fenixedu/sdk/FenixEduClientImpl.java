@@ -3,6 +3,7 @@ package org.fenixedu.sdk;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fenixedu.sdk.api.AssiduityResources;
 import org.fenixedu.sdk.api.CurricularResources;
 import org.fenixedu.sdk.api.EvaluationResources;
 import org.fenixedu.sdk.api.FenixEduEndpoint;
@@ -25,6 +26,11 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     @Override
     public PublicResources publicScope() {
+        return this;
+    }
+
+    @Override
+    public AssiduityResources assiduityScope() {
         return this;
     }
 
@@ -67,6 +73,24 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
     @Override
     public JsonObject getAbout() {
         return invoke(FenixEduEndpoint.ABOUT);
+    }
+
+    /**
+     * Obtains the personal assiduity.
+     *
+     * <p>
+     * <b>Scope:</b> Assiduity
+     * </p>
+     *
+     *
+     * @return information about personal assiduity
+     * @throws FenixEduClientException description
+     */
+    @Override
+    public JsonObject getAssiduity(Authorization authorization, String date) {
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("date", date);
+        return invoke(FenixEduEndpoint.ASSIDUITY, authorization, queryParams);
     }
 
     /**
