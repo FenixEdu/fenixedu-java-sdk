@@ -39,7 +39,7 @@ public enum FenixEduEndpoint {
             JsonObject.class), PERSON_CURRICULUM("person/curriculum", Scope.CURRICULAR, HttpMethod.GET,
             MediaType.APPLICATION_JSON, JsonArray.class), PERSON_EVALUATIONS("person/evaluations", Scope.EVALUATION,
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), PERSON_EVALUATION("person/evaluations/%s",
-            Scope.EVALUATION, HttpMethod.PUT, MediaType.APPLICATION_JSON, JsonObject.class), PERSON_PAYMENTS("person/payments",
+            Scope.EVALUATION, HttpMethod.PUT, MediaType.APPLICATION_JSON, JsonArray.class), PERSON_PAYMENTS("person/payments",
             Scope.PAYMENT, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class),
 
     SHUTTLE("shuttle", Scope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), PARKING("parking",

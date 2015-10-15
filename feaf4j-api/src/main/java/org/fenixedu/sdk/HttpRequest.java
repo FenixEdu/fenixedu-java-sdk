@@ -8,7 +8,7 @@ public class HttpRequest {
     private final String baseUrl;
     private final HttpMethod httpMethod;
 
-    private byte[] body;
+    private byte[] body = new byte[] {};
     private Map<String, String> queryParams;
     private MediaType acceptedMediaType;
 
