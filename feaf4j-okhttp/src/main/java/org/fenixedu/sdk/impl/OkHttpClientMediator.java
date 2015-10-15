@@ -50,6 +50,8 @@ public class OkHttpClientMediator implements HttpClient {
                 return handleGetRequest(url, httpRequest);
             case POST:
                 return handlePostRequest(url, httpRequest);
+            case PUT:
+                return handlePutRequest(url, httpRequest);
             default:
                 throw new FenixEduClientException("Unhandled HttpMethod", null);
             }
@@ -78,6 +80,14 @@ public class OkHttpClientMediator implements HttpClient {
         Request request = new Request.Builder().url(url).post(body).build();
         Response response = client.newCall(request).execute();
         return new ClientResponse(Status.fromStatusCode(response.code()), response.body().string());
+    }
+    
 
+    private ClientResponse handlePutRequest(String url, HttpRequest putRequest) throws Exception {
+        logger.debug("HTTP Request delegated to PUT handler");
+        RequestBody body = RequestBody.create(MEDIA_TYPE, putRequest.getBody());
+        Request request = new Request.Builder().url(url).put(body).build();
+        Response response = client.newCall(request).execute();
+        return new ClientResponse(Status.fromStatusCode(response.code()), response.body().string());
     }
 }
