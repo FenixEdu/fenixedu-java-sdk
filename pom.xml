@@ -54,9 +54,9 @@
 	<modules>
 		<module>http-facade</module>
 		<module>http-facade-okhttp</module>
+		<module>http-facade-jersey</module>
 		<module>oauth-provider</module>
 		<module>feaf4j-api</module>
-		<module>feaf4j-jersey</module>
 		<module>feaf4j-android</module>
 		<module>feaf4j-spring-security</module>
 	</modules>

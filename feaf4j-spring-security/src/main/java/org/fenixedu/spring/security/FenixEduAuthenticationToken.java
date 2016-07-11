@@ -2,7 +2,7 @@ package org.fenixedu.spring.security;
 
 import java.util.Collections;
 
-import org.fenixedu.sdk.Authorization;
+import org.fenixedu.sdk.OAuthAuthorization;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,10 +11,10 @@ public class FenixEduAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = -4692065554679615204L;
 
-    private Authorization userAuthorization;
+    private OAuthAuthorization userAuthorization;
     private UserDetails userDetails;
 
-    public FenixEduAuthenticationToken(Authorization userAuthorization) {
+    public FenixEduAuthenticationToken(OAuthAuthorization userAuthorization) {
         super(Collections.singletonList(new SimpleGrantedAuthority("USER")));
         this.userAuthorization = userAuthorization;
         setAuthenticated(true);

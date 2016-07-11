@@ -9,9 +9,9 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>feaf4j-jersey</artifactId>
+    <artifactId>http-facade-jersey</artifactId>
 
-    <name>FenixEdu Java SDK Jersey Binding</name>
+    <name>HTTP Facade for Java API SDKs Jersey Binding</name>
 
     <properties>
         <version.com.sun.jersey.jersey.client>1.18</version.com.sun.jersey.jersey.client>
