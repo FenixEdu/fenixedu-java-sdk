@@ -7,10 +7,11 @@
         <groupId>pt.ist</groupId>
         <artifactId>feaf4j</artifactId>
         <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>feaf4j-api</artifactId>
-    <name>FenixEdu API Facade for Java API</name>
+    <artifactId>http-facade</artifactId>
+    <name>HTTP Facade for Java API SDKs</name>
 
     <properties>
         <version.com.google.code.gson.gson>2.2.4</version.com.google.code.gson.gson>
@@ -27,16 +28,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${version.org.slf4j.slf4j.api}</version>
-        </dependency>
-        <dependency>
-            <groupId>pt.ist</groupId>
-            <artifactId>http-facade</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>pt.ist</groupId>
-            <artifactId>oauth-provider</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

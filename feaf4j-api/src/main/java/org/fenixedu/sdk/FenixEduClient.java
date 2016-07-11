@@ -28,7 +28,7 @@ public interface FenixEduClient extends FenixEduClientBase, AssiduityResources, 
 
     public String getAuthenticationUrl();
 
-    public Authorization refreshAccessToken(Authorization oldAuthorization);
+    public OAuthAuthorization refreshAccessToken(OAuthAuthorization oldAuthorization);
 
     public FenixEduUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException;
 
