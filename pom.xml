@@ -59,6 +59,7 @@
 		<module>feaf4j-api</module>
 		<module>feaf4j-android</module>
 		<module>feaf4j-spring-security</module>
+		<module>dot4j-api</module>
 	</modules>
 
 	<distributionManagement>
