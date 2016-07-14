@@ -9,7 +9,7 @@ import java.util.Map;
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.api.DotEndpoint;
 import org.fenixedu.sdk.exception.ExceptionFactory;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 import org.fenixedu.sdk.impl.StaticHttpClientBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +26,12 @@ public abstract class DotClientBaseImpl implements DotClientBase {
 
     private final HttpClient client;
 
-    public DotClientBaseImpl(ApplicationConfiguration config) throws FenixEduClientException {
+    public DotClientBaseImpl(ApplicationConfiguration config) throws ApiClientException {
         this.config = config;
         try {
             this.client = StaticHttpClientBinder.getSingleton().getHttpClientFactory().getHttpClient();
         } catch (final Throwable e) {
-            throw new FenixEduClientException("Could not obtain HTTP client", e);
+            throw new ApiClientException("Could not obtain HTTP client", e);
         }
     }
 
@@ -44,7 +44,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         return request.getUrl();
     }
 
-    public final DotUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException {
+    public final DotUserDetails getUserDetailsFromCode(String code) throws ApiClientException {
         final Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
         queryParams.put("client_secret", getEncodedSecret());
@@ -63,26 +63,26 @@ public abstract class DotClientBaseImpl implements DotClientBase {
             final String refreshToken = jsonObject.get(OAuthAuthorization.REFRESH_TOKEN).getAsString();
             return new DotUserDetails(new OAuthAuthorizationImpl(accessToken, refreshToken));
         }
-        throw new FenixEduClientException(response.getResponse(), null);
+        throw new ApiClientException(response.getResponse(), null);
     }
 
     protected <T extends Object> T invoke(DotEndpoint endpoint, Authorization authorization, String... endpointArgs)
-            throws FenixEduClientException {
+            throws ApiClientException {
         return invoke(endpoint, authorization, null, endpointArgs);
     }
 
-    protected <T extends Object> T invoke(DotEndpoint endpoint, String... endpointArgs) throws FenixEduClientException {
+    protected <T extends Object> T invoke(DotEndpoint endpoint, String... endpointArgs) throws ApiClientException {
         return invoke(endpoint, null, null, endpointArgs);
     }
 
     protected <T extends Object> T invoke(DotEndpoint endpoint, Map<String, String> queryParams, String... endpointArgs)
-            throws FenixEduClientException {
+            throws ApiClientException {
         return invoke(endpoint, null, queryParams, endpointArgs);
     }
 
     @SuppressWarnings("unchecked")
     protected <T extends Object> T invoke(DotEndpoint endpoint, Authorization authorization, Map<String, String> queryParams,
-            String... endpointArgs) throws FenixEduClientException {
+            String... endpointArgs) throws ApiClientException {
 
         if (queryParams == null) {
             queryParams = new HashMap<String, String>();
@@ -108,7 +108,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         } else if (endpoint.getResponseClass().equals(File.class)) {
             return (T) clientResponse.getResponse().getBytes();
         } else {
-            throw new FenixEduClientException("Could not identify return type", null);
+            throw new ApiClientException("Could not identify return type", null);
         }
 
     }
@@ -136,7 +136,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
             final String newAccessToken = responseJson.get("access_token").getAsString();
             return new OAuthAuthorizationImpl(newAccessToken, authorization.getOAuthRefreshToken());
         } else {
-            throw new FenixEduClientException("Unexpected return type", null);
+            throw new ApiClientException("Unexpected return type", null);
         }
     }
 

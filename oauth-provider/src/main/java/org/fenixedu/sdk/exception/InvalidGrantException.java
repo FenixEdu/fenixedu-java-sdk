@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class InvalidGrantException extends FenixEduClientException {
+public class InvalidGrantException extends ApiClientException {
 
     /**
      * 

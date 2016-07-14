@@ -2,7 +2,7 @@ package org.fenixedu.sdk;
 
 import org.fenixedu.sdk.api.ExpendituresResources;
 import org.fenixedu.sdk.api.PublicResources;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 
 public interface DotClient extends DotClientBase, PublicResources, ExpendituresResources {
 
@@ -14,6 +14,6 @@ public interface DotClient extends DotClientBase, PublicResources, ExpendituresR
 
     public OAuthAuthorization refreshAccessToken(OAuthAuthorization oldAuthorization);
 
-    public DotUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException;
+    public DotUserDetails getUserDetailsFromCode(String code) throws ApiClientException;
 
 }

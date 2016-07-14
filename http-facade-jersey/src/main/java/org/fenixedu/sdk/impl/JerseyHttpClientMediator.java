@@ -6,7 +6,7 @@ import org.fenixedu.sdk.ClientResponse;
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.HttpClient;
 import org.fenixedu.sdk.HttpRequest;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +45,10 @@ public class JerseyHttpClientMediator implements HttpClient {
             case POST:
                 return handlePostRequest(url, httpRequest);
             default:
-                throw new FenixEduClientException("Unhandled HttpMethod", null);
+                throw new ApiClientException("Unhandled HttpMethod", null);
             }
         } catch (Exception e) {
-            throw new FenixEduClientException("Error handling request", e);
+            throw new ApiClientException("Error handling request", e);
         }
     }
 
@@ -68,7 +68,7 @@ public class JerseyHttpClientMediator implements HttpClient {
             org.fenixedu.sdk.ClientResponse.Status s = Status.fromStatusCode(clientResponse.getStatus());
             return new ClientResponse(s, rsp);
         } else {
-            throw new FenixEduClientException(clientResponse.getEntity(String.class), null);
+            throw new ApiClientException(clientResponse.getEntity(String.class), null);
         }
     }
 
@@ -88,7 +88,7 @@ public class JerseyHttpClientMediator implements HttpClient {
             org.fenixedu.sdk.ClientResponse.Status s = Status.fromStatusCode(clientResponse.getStatus());
             return new ClientResponse(s, rsp);
         } else {
-            throw new FenixEduClientException(clientResponse.getEntity(String.class), null);
+            throw new ApiClientException(clientResponse.getEntity(String.class), null);
         }
     }
 }

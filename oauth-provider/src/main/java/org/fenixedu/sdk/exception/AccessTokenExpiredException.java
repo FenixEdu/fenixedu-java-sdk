@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class AccessTokenExpiredException extends FenixEduClientException {
+public class AccessTokenExpiredException extends ApiClientException {
 
     /**
      * 

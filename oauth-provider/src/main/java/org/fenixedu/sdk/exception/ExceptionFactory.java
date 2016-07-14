@@ -3,7 +3,7 @@ package org.fenixedu.sdk.exception;
 import org.fenixedu.sdk.Errors;
 
 public class ExceptionFactory {
-    public static FenixEduClientException createException(String error, String errorDescription) {
+    public static ApiClientException createException(String error, String errorDescription) {
         if (error.equals(Errors.INVALID_SCOPE)) {
             return new InvalidScopeException(errorDescription);
         } else if (error.equals(Errors.ACCESS_TOKEN_INVALID)) {
@@ -19,7 +19,7 @@ public class ExceptionFactory {
         } else if (error.equals(Errors.ACCESS_TOKEN_INVALID_FORMAT)) {
             return new RefreshTokenInvalidFormatException(errorDescription);
         } else {
-            return new FenixEduClientException(errorDescription);
+            return new ApiClientException(errorDescription);
         }
     }
 }

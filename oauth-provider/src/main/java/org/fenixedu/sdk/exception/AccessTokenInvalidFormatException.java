@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class AccessTokenInvalidFormatException extends FenixEduClientException {
+public class AccessTokenInvalidFormatException extends ApiClientException {
 
     /**
      * 

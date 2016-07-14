@@ -6,7 +6,7 @@ import org.fenixedu.sdk.ClientResponse;
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.HttpClient;
 import org.fenixedu.sdk.HttpRequest;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,13 +53,13 @@ public class OkHttpClientMediator implements HttpClient {
             case PUT:
                 return handlePutRequest(url, httpRequest);
             default:
-                throw new FenixEduClientException("Unhandled HttpMethod", null);
+                throw new ApiClientException("Unhandled HttpMethod", null);
             }
-        } catch (FenixEduClientException e) {
+        } catch (ApiClientException e) {
             throw e;
 
         } catch (Throwable e) {
-            throw new FenixEduClientException("Error handling request", e);
+            throw new ApiClientException("Error handling request", e);
         }
     }
 
@@ -70,7 +70,7 @@ public class OkHttpClientMediator implements HttpClient {
             Response response = client.newCall(request).execute();
             return new ClientResponse(Status.fromStatusCode(response.code()), response.body().string());
         } catch (IOException e) {
-            throw new FenixEduClientException("Problem in handling GET request", e);
+            throw new ApiClientException("Problem in handling GET request", e);
         }
     }
 

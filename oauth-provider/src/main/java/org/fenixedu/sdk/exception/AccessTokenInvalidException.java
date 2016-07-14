@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class AccessTokenInvalidException extends FenixEduClientException {
+public class AccessTokenInvalidException extends ApiClientException {
 
     /**
      * 

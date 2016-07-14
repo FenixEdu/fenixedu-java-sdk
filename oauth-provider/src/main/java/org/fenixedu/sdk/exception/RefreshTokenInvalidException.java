@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class RefreshTokenInvalidException extends FenixEduClientException {
+public class RefreshTokenInvalidException extends ApiClientException {
 
     /**
      * 

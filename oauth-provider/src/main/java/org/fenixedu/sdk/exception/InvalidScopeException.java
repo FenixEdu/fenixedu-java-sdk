@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class InvalidScopeException extends FenixEduClientException {
+public class InvalidScopeException extends ApiClientException {
 
     /**
      * 

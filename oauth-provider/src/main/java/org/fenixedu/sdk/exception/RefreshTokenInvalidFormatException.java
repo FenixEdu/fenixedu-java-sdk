@@ -1,6 +1,6 @@
 package org.fenixedu.sdk.exception;
 
-public class RefreshTokenInvalidFormatException extends FenixEduClientException {
+public class RefreshTokenInvalidFormatException extends ApiClientException {
 
     /**
      * 
