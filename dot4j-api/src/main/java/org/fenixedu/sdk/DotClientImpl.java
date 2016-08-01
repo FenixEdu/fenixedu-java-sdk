@@ -3,8 +3,8 @@ package org.fenixedu.sdk;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.fenixedu.sdk.api.ExpendituresResources;
 import org.fenixedu.sdk.api.DotEndpoint;
+import org.fenixedu.sdk.api.ExpendituresResources;
 import org.fenixedu.sdk.api.PublicResources;
 import org.fenixedu.sdk.domain.MissionState;
 
@@ -42,7 +42,7 @@ public class DotClientImpl extends DotClientBaseImpl implements DotClient {
     public JsonObject searchMissions(Authorization authorization, String processNumber, String missionResponsibleOID,
             String payingUnitOID, Boolean foreign, Long date, String interval, String requestingPersonOID, String participantOID,
             MissionState pendingState, String accountingUnitOID, String participantAuthorizationAuthorityOID,
-            Boolean filterCanceledProcesses, Boolean filterTakenProcesses) {
+            Boolean filterCanceledProcesses, Boolean filterTakenProcesses, Integer page, String sortBy) {
 
         final Map<String, String> params = new HashMap<String, String>();
         if (processNumber != null) {
@@ -83,6 +83,12 @@ public class DotClientImpl extends DotClientBaseImpl implements DotClient {
         }
         if (filterTakenProcesses != null) {
             params.put("ft", filterTakenProcesses.toString());
+        }
+        if (page != null) {
+            params.put("page", page.toString());
+        }
+        if (sortBy != null) {
+            params.put("sortBy", sortBy.toString());
         }
         return invoke(DotEndpoint.EXPENDITURES_SEARCH_MISSIONS, authorization, params);
     }

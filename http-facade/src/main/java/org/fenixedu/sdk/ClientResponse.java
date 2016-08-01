@@ -19,7 +19,9 @@ public class ClientResponse {
     }
 
     public enum Status {
-        OK(200, "OK"), CREATED(201, "Created"), BAD_REQUEST(400, "Bad Request"), UNAUTHORIZED(401, "Unauthorized"), PRECONDITION_FAILED(412, "Precondition Failed"), INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+        OK(200, "OK"), CREATED(201, "Created"), BAD_REQUEST(400, "Bad Request"), UNAUTHORIZED(401, "Unauthorized"),
+        NOT_FOUND(404, "Not Found"), PRECONDITION_FAILED(412, "Precondition Failed"),
+        INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
         private final int statusCode;
         private final String description;
@@ -47,6 +49,8 @@ public class ClientResponse {
                 return BAD_REQUEST;
             case 401:
                 return UNAUTHORIZED;
+            case 404:
+                return NOT_FOUND;
             case 412:
                 return PRECONDITION_FAILED;
             case 500:

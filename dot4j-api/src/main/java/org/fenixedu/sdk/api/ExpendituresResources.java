@@ -10,7 +10,7 @@ public interface ExpendituresResources {
     JsonObject searchMissions(Authorization authorization, String processNumber, String missionResponsibleOID,
             String payingUnitOID, Boolean foreign, Long date, String interval, String requestingPersonOID, String participantOID,
             MissionState pendingState, String accountingUnitOID, String participantAuthorizationAuthorityOID,
-            Boolean filterCanceledProcesses, Boolean filterTakenProcesses);
+            Boolean filterCanceledProcesses, Boolean filterTakenProcesses, Integer page, String sortBy);
 
     JsonObject getMission(Authorization authorization, String processNumber);
 

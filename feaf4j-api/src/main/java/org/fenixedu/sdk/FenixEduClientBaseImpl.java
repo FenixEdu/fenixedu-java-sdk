@@ -40,7 +40,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
         final HttpRequest request =
-                RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
+                FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
         return request.getUrl();
     }
 
@@ -52,7 +52,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         queryParams.put("code", code);
         queryParams.put("grant_type", "authorization_code");
 
-        final HttpRequest httpRequest = RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_ACCESS_TOKEN)
+        final HttpRequest httpRequest = FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_ACCESS_TOKEN)
                 .withBody(Joiner.getEncodedQueryParams(queryParams));
         final ClientResponse response = client.handleHttpRequest(httpRequest);
 
@@ -90,7 +90,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         queryParams.put("lang", config.getLocale().getLanguage() + "-" + config.getLocale().getCountry());
 
         final HttpRequest httpRequest =
-                RequestFactory.fromFenixEduEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
+                FenixEduApiRequestFactory.fromFenixEduEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
         if (authorization != null) {
             httpRequest.withAuthorization(authorization);
         }
@@ -122,7 +122,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("refresh_token", authorization.getOAuthRefreshToken());
 
-        final HttpRequest httpRequest = RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN)
+        final HttpRequest httpRequest = FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN)
                 .withBody(Joiner.getEncodedQueryParams(queryParams));
 
         final ClientResponse clientResponse = client.handleHttpRequest(httpRequest);

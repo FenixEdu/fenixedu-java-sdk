@@ -1,6 +1,6 @@
 package org.fenixedu.sdk;
 
-public enum Scope {
+public enum DotScope {
 
     AUTH, PUBLIC, EXPENDITURES;
 

@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.api.DotEndpoint;
-import org.fenixedu.sdk.exception.ExceptionFactory;
 import org.fenixedu.sdk.exception.ApiClientException;
+import org.fenixedu.sdk.exception.ExceptionFactory;
 import org.fenixedu.sdk.impl.StaticHttpClientBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +39,9 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         final Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
+
         final HttpRequest request =
-                RequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
+                DotApiRequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
         return request.getUrl();
     }
 
@@ -52,7 +53,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         queryParams.put("code", code);
         queryParams.put("grant_type", "authorization_code");
 
-        final HttpRequest httpRequest = RequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_ACCESS_TOKEN)
+        final HttpRequest httpRequest = DotApiRequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_ACCESS_TOKEN)
                 .withBody(Joiner.getEncodedQueryParams(queryParams));
         final ClientResponse response = client.handleHttpRequest(httpRequest);
 
@@ -90,7 +91,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         queryParams.put("lang", config.getLocale().getLanguage() + "-" + config.getLocale().getCountry());
 
         final HttpRequest httpRequest =
-                RequestFactory.fromDotEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
+                DotApiRequestFactory.fromDotEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
         if (authorization != null) {
             httpRequest.withAuthorization(authorization);
         }
@@ -122,7 +123,7 @@ public abstract class DotClientBaseImpl implements DotClientBase {
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("refresh_token", authorization.getOAuthRefreshToken());
 
-        final HttpRequest httpRequest = RequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_REFRESH_ACCESS_TOKEN)
+        final HttpRequest httpRequest = DotApiRequestFactory.fromDotEndpoint(config, DotEndpoint.OAUTH_REFRESH_ACCESS_TOKEN)
                 .withBody(Joiner.getEncodedQueryParams(queryParams));
 
         final ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
