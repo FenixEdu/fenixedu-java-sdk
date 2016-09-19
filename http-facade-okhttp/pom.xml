@@ -9,25 +9,24 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>feaf4j-android</artifactId>
+    <artifactId>http-facade-okhttp</artifactId>
 
-    <name>FenixEdu Java SDK Android</name>
+    <name>HTTP Facade for Java API SDKs OkHTTP Binding</name>
 
     <properties>
-        <version.com.google.android>4.1.1.4</version.com.google.android>
+        <version.com.squareup.okhttp>2.2.0</version.com.squareup.okhttp>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>pt.ist</groupId>
-            <artifactId>feaf4j-api</artifactId>
+            <artifactId>http-facade</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <version>${version.com.google.android}</version>
-            <scope>provided</scope>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${version.com.squareup.okhttp}</version>
         </dependency>
     </dependencies>
 

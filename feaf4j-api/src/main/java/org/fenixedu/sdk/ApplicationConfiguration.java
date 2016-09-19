@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 
 public class ApplicationConfiguration {
 
@@ -21,7 +21,7 @@ public class ApplicationConfiguration {
             return new ApplicationConfiguration(props.getProperty("base.url"), props.getProperty("oauth.consumer.key"),
                     props.getProperty("oauth.consumer.secret"), props.getProperty("callback.url"));
         } catch (IOException e) {
-            throw new FenixEduClientException("Could not load " + propertiesFilename + " file.", e);
+            throw new ApiClientException("Could not load " + propertiesFilename + " file.", e);
         }
     }
 

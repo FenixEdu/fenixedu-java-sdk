@@ -9,7 +9,7 @@ import java.util.Map;
 import org.fenixedu.sdk.ClientResponse.Status;
 import org.fenixedu.sdk.api.FenixEduEndpoint;
 import org.fenixedu.sdk.exception.ExceptionFactory;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 import org.fenixedu.sdk.impl.StaticHttpClientBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,80 +26,79 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
 
     private final HttpClient client;
 
-    public FenixEduClientBaseImpl(ApplicationConfiguration config) throws FenixEduClientException {
+    public FenixEduClientBaseImpl(ApplicationConfiguration config) throws ApiClientException {
         this.config = config;
         try {
             this.client = StaticHttpClientBinder.getSingleton().getHttpClientFactory().getHttpClient();
-        } catch (Throwable e) {
-            throw new FenixEduClientException("Could not obtain HTTP client", e);
+        } catch (final Throwable e) {
+            throw new ApiClientException("Could not obtain HTTP client", e);
         }
     }
 
     public String getAuthenticationUrl() {
-        Map<String, String> queryParams = new HashMap<String, String>();
+        final Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
-        HttpRequest request =
-                RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
+        final HttpRequest request =
+                FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_USER_DIALOG).withQueryParams(queryParams);
         return request.getUrl();
     }
 
-    public final FenixEduUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException {
-        Map<String, String> queryParams = new HashMap<String, String>();
+    public final FenixEduUserDetails getUserDetailsFromCode(String code) throws ApiClientException {
+        final Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
         queryParams.put("client_secret", getEncodedSecret());
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
         queryParams.put("code", code);
         queryParams.put("grant_type", "authorization_code");
 
-        HttpRequest httpRequest =
-                RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_ACCESS_TOKEN).withBody(
-                        Joiner.getEncodedQueryParams(queryParams));
-        ClientResponse response = client.handleHttpRequest(httpRequest);
+        final HttpRequest httpRequest = FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_ACCESS_TOKEN)
+                .withBody(Joiner.getEncodedQueryParams(queryParams));
+        final ClientResponse response = client.handleHttpRequest(httpRequest);
 
-        String output = response.getResponse();
-        JsonObject jsonObject = new JsonParser().parse(output).getAsJsonObject();
+        final String output = response.getResponse();
+        final JsonObject jsonObject = new JsonParser().parse(output).getAsJsonObject();
         if (response.getStatusCode() == Status.OK.getStatusCode()) {
-            String accessToken = jsonObject.get(OAuthAuthorization.ACCESS_TOKEN).getAsString();
-            String refreshToken = jsonObject.get(OAuthAuthorization.REFRESH_TOKEN).getAsString();
+            final String accessToken = jsonObject.get(OAuthAuthorization.ACCESS_TOKEN).getAsString();
+            final String refreshToken = jsonObject.get(OAuthAuthorization.REFRESH_TOKEN).getAsString();
             return new FenixEduUserDetails(new OAuthAuthorizationImpl(accessToken, refreshToken));
         }
-        throw new FenixEduClientException(response.getResponse(), null);
+        throw new ApiClientException(response.getResponse(), null);
     }
 
     protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Authorization authorization, String... endpointArgs)
-            throws FenixEduClientException {
+            throws ApiClientException {
         return invoke(endpoint, authorization, null, endpointArgs);
     }
 
-    protected <T extends Object> T invoke(FenixEduEndpoint endpoint, String... endpointArgs) throws FenixEduClientException {
+    protected <T extends Object> T invoke(FenixEduEndpoint endpoint, String... endpointArgs) throws ApiClientException {
         return invoke(endpoint, null, null, endpointArgs);
     }
 
     protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Map<String, String> queryParams, String... endpointArgs)
-            throws FenixEduClientException {
+            throws ApiClientException {
         return invoke(endpoint, null, queryParams, endpointArgs);
     }
 
     @SuppressWarnings("unchecked")
-    protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Authorization authorization,
-            Map<String, String> queryParams, String... endpointArgs) throws FenixEduClientException {
+    protected <T extends Object> T invoke(FenixEduEndpoint endpoint, Authorization authorization, Map<String, String> queryParams,
+            String... endpointArgs) throws ApiClientException {
 
         if (queryParams == null) {
             queryParams = new HashMap<String, String>();
         }
         queryParams.put("lang", config.getLocale().getLanguage() + "-" + config.getLocale().getCountry());
 
-        HttpRequest httpRequest =
-                RequestFactory.fromFenixEduEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
+        final HttpRequest httpRequest =
+                FenixEduApiRequestFactory.fromFenixEduEndpoint(config, endpoint, endpointArgs).withQueryParams(queryParams);
         if (authorization != null) {
             httpRequest.withAuthorization(authorization);
         }
-        ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
+        final ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
         if (clientResponse.getStatusCode() == 401) {
-            JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
-            String error = jsonResponse.get("error").getAsString();
-            String errorDescription = jsonResponse.get("error_description").getAsString();
+            final JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+            final String error = jsonResponse.get("error").getAsString();
+            final String errorDescription = jsonResponse.get("error_description").getAsString();
             throw ExceptionFactory.createException(error, errorDescription);
         }
         if (endpoint.getResponseClass().equals(JsonArray.class)) {
@@ -109,36 +108,35 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         } else if (endpoint.getResponseClass().equals(File.class)) {
             return (T) clientResponse.getResponse().getBytes();
         } else {
-            throw new FenixEduClientException("Could not identify return type", null);
+            throw new ApiClientException("Could not identify return type", null);
         }
 
     }
 
-    public Authorization refreshAccessToken(Authorization authorization) {
+    public OAuthAuthorization refreshAccessToken(OAuthAuthorization authorization) {
         logger.debug("Refreshing OAuth Access Token using Refresh Token");
-        Map<String, String> queryParams = new HashMap<String, String>();
+        final Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("grant_type", "refresh_token");
         queryParams.put("client_id", this.config.getOAuthConsumerKey());
         queryParams.put("client_secret", getEncodedSecret());
         queryParams.put("redirect_uri", this.config.getCallbackUrl());
-        queryParams.put("refresh_token", authorization.asOAuthAuthorization().getOAuthRefreshToken());
+        queryParams.put("refresh_token", authorization.getOAuthRefreshToken());
 
-        HttpRequest httpRequest =
-                RequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN).withBody(
-                        Joiner.getEncodedQueryParams(queryParams));
+        final HttpRequest httpRequest = FenixEduApiRequestFactory.fromFenixEduEndpoint(config, FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN)
+                .withBody(Joiner.getEncodedQueryParams(queryParams));
 
-        ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
+        final ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
         if (clientResponse.getStatusCode() == 401) {
-            JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
-            String error = jsonResponse.get("error").getAsString();
+            final JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+            final String error = jsonResponse.get("error").getAsString();
             throw ExceptionFactory.createException(error, null);
         }
         if (FenixEduEndpoint.OAUTH_REFRESH_ACCESS_TOKEN.getResponseClass().equals(JsonObject.class)) {
-            JsonObject responseJson = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
-            String newAccessToken = responseJson.get("access_token").getAsString();
-            return new OAuthAuthorizationImpl(newAccessToken, authorization.asOAuthAuthorization().getOAuthRefreshToken());
+            final JsonObject responseJson = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
+            final String newAccessToken = responseJson.get("access_token").getAsString();
+            return new OAuthAuthorizationImpl(newAccessToken, authorization.getOAuthRefreshToken());
         } else {
-            throw new FenixEduClientException("Unexpected return type", null);
+            throw new ApiClientException("Unexpected return type", null);
         }
     }
 
@@ -146,7 +144,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
         String secret;
         try {
             secret = URLEncoder.encode(this.config.getOAuthConsumerSecret(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (final UnsupportedEncodingException e) {
             secret = this.config.getOAuthConsumerSecret();
         }
         return secret;

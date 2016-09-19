@@ -3,9 +3,9 @@ package org.fenixedu.sdk;
 public class FenixEduUserDetails {
 
     private String username;
-    private final Authorization authorization;
+    private final OAuthAuthorization authorization;
 
-    public FenixEduUserDetails(Authorization authorization) {
+    public FenixEduUserDetails(OAuthAuthorization authorization) {
         this.authorization = authorization;
     }
 
@@ -17,7 +17,7 @@ public class FenixEduUserDetails {
         this.username = username;
     }
 
-    public Authorization getAuthorization() {
+    public OAuthAuthorization getAuthorization() {
         return authorization;
     }
 
