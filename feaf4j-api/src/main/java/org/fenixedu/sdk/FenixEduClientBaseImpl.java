@@ -126,7 +126,7 @@ public abstract class FenixEduClientBaseImpl implements FenixEduClientBase {
                 .withBody(Joiner.getEncodedQueryParams(queryParams));
 
         final ClientResponse clientResponse = client.handleHttpRequest(httpRequest);
-        if (clientResponse.getStatusCode() == 401) {
+        if (clientResponse.getStatusCode() == 400 || clientResponse.getStatusCode() == 401) {
             final JsonObject jsonResponse = new JsonParser().parse(clientResponse.getResponse()).getAsJsonObject();
             final String error = jsonResponse.get("error").getAsString();
             throw ExceptionFactory.createException(error, null);
