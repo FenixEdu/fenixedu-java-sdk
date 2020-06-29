@@ -11,7 +11,7 @@
 
 	<groupId>pt.ist</groupId>
 	<artifactId>feaf4j</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>DEV-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>FenixEdu Api Facade for Java</name>
