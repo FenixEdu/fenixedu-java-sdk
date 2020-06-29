@@ -1,6 +1,6 @@
 package org.fenixedu.spring.security;
 
-import org.fenixedu.sdk.Authorization;
+import org.fenixedu.sdk.OAuthAuthorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,11 +21,10 @@ public class FenixEduAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        FenixEduAuthenticationToken token = (FenixEduAuthenticationToken) authentication;
+        final FenixEduAuthenticationToken token = (FenixEduAuthenticationToken) authentication;
         logger.debug("Attempting to authenticate with credentials {}", token.getCredentials());
-        Authorization authorization = (Authorization) token.getCredentials();
-        UserDetails userDetails =
-                userDetailsService.loadUserByUsername(authorization.asOAuthAuthorization().getOAuthAccessToken());
+        final OAuthAuthorization authorization = (OAuthAuthorization) token.getCredentials();
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authorization.getOAuthAccessToken());
         return new FenixEduAuthenticationToken(userDetails);
     }
 

@@ -7,7 +7,7 @@ import org.fenixedu.sdk.api.PaymentResources;
 import org.fenixedu.sdk.api.PersonalResources;
 import org.fenixedu.sdk.api.PublicResources;
 import org.fenixedu.sdk.api.ScheduleResources;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 
 public interface FenixEduClient extends FenixEduClientBase, AssiduityResources, PublicResources, PersonalResources,
         ScheduleResources, CurricularResources, EvaluationResources, PaymentResources {
@@ -28,8 +28,8 @@ public interface FenixEduClient extends FenixEduClientBase, AssiduityResources, 
 
     public String getAuthenticationUrl();
 
-    public Authorization refreshAccessToken(Authorization oldAuthorization);
+    public OAuthAuthorization refreshAccessToken(OAuthAuthorization oldAuthorization);
 
-    public FenixEduUserDetails getUserDetailsFromCode(String code) throws FenixEduClientException;
+    public FenixEduUserDetails getUserDetailsFromCode(String code) throws ApiClientException;
 
 }

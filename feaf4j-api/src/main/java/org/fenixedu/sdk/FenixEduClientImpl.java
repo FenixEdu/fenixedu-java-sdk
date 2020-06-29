@@ -13,7 +13,7 @@ import org.fenixedu.sdk.api.PublicResources;
 import org.fenixedu.sdk.api.ScheduleResources;
 import org.fenixedu.sdk.domain.CalendarFormat;
 import org.fenixedu.sdk.domain.EnrolAction;
-import org.fenixedu.sdk.exception.FenixEduClientException;
+import org.fenixedu.sdk.exception.ApiClientException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -68,7 +68,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      *
      *
      * @return the urls for the university news and events RSS
-     * @throws FenixEduClientException description
+     * @throws ApiClientException description
      */
     @Override
     public JsonObject getAbout() {
@@ -84,7 +84,7 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
      *
      *
      * @return information about personal assiduity
-     * @throws FenixEduClientException description
+     * @throws ApiClientException description
      */
     @Override
     public JsonObject getAssiduity(Authorization authorization, String date) {

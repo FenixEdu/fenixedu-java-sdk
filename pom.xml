@@ -11,7 +11,7 @@
 
 	<groupId>pt.ist</groupId>
 	<artifactId>feaf4j</artifactId>
-	<version>2.3.3</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>FenixEdu Api Facade for Java</name>
@@ -52,9 +52,11 @@
 	</issueManagement>
 
 	<modules>
+		<module>http-facade</module>
+		<module>http-facade-okhttp</module>
+		<module>http-facade-jersey</module>
+		<module>oauth-provider</module>
 		<module>feaf4j-api</module>
-		<module>feaf4j-okhttp</module>
-		<module>feaf4j-jersey</module>
 		<module>feaf4j-android</module>
 		<module>feaf4j-spring-security</module>
 	</modules>
