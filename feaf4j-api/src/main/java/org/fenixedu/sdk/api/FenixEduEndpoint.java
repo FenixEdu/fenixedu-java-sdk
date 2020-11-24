@@ -46,7 +46,9 @@ public enum FenixEduEndpoint {
             FenixEduScope.PUBLIC, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonObject.class), SPACES("spaces", FenixEduScope.PUBLIC,
             HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class), SPACE("spaces/%s", FenixEduScope.PUBLIC, HttpMethod.GET,
             MediaType.APPLICATION_JSON, JsonObject.class), SPACE_BLUEPRINT("spaces/%s/blueprint", FenixEduScope.PUBLIC, HttpMethod.GET,
-            MediaType.APPLICATION_JSON, File.class);
+            MediaType.APPLICATION_JSON, File.class),
+
+    PHD_THESIS_PROCESSES("phdThesisProcesses", FenixEduScope.DEGREE_CURRICULAR_MANAGEMENT, HttpMethod.GET, MediaType.APPLICATION_JSON, JsonArray.class);
 
     private String pathRegex;
     private FenixEduScope scope;

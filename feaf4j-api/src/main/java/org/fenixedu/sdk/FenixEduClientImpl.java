@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.fenixedu.sdk.api.AssiduityResources;
 import org.fenixedu.sdk.api.CurricularResources;
+import org.fenixedu.sdk.api.DegreeCurricularManagementResources;
 import org.fenixedu.sdk.api.EvaluationResources;
 import org.fenixedu.sdk.api.FenixEduEndpoint;
 import org.fenixedu.sdk.api.PaymentResources;
@@ -56,6 +57,11 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
 
     @Override
     public PaymentResources paymentScope() {
+        return this;
+    }
+
+    @Override
+    public DegreeCurricularManagementResources degreeCurricularManagementScope() {
         return this;
     }
 
@@ -478,6 +484,39 @@ public class FenixEduClientImpl extends FenixEduClientBaseImpl implements FenixE
         Map<String, String> params = new HashMap<String, String>();
         params.put("academicTerm", academicTerm);
         return invoke(FenixEduEndpoint.PERSON_COURSES, authorization, params);
+    }
+
+    /**
+     * Obtains the PhD Thesis processes associated to a particular academic term,
+     * department or student.
+     *
+     * @param academicTerm
+     *            the representative string of the execution year you wish to
+     *            retrieve the processes from (e.g. 2003/2004). Defaults to
+     *            current year.
+     * @param department
+     *            the representative string of the department you wish to
+     *            retrieve the processes from. If absent, the results will
+     *            not be filtered by department.
+     * @param department
+     *            the username of the student you wish to retrieve the processes
+     *            from. If present, all other parameters will be ignored.
+     * @return a JsonArray listing the processes for the chosen academic term.
+     * @throws FenixEduClientException .
+     */
+    @Override
+    public JsonArray getPhdThesisProcesses(Authorization authorization, String academicTerm, String department, String username) {
+        Map<String, String> params = new HashMap<String, String>();
+        if (academicTerm != null) {
+            params.put("academicTerm", academicTerm);
+        }
+        if (department != null) {
+            params.put("department", department);
+        }
+        if (username != null) {
+            params.put("username", username);
+        }
+        return invoke(FenixEduEndpoint.PHD_THESIS_PROCESSES, authorization, params);
     }
 
     @Override
