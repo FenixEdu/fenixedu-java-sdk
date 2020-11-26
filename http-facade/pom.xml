@@ -6,7 +6,7 @@
     <parent>
         <groupId>pt.ist</groupId>
         <artifactId>feaf4j</artifactId>
-        <version>DEV-SNAPSHOT</version>
+        <version>3.1.0</version>
         <relativePath>../</relativePath>
     </parent>
 
