@@ -14,7 +14,7 @@
     <name>OAuth Authentication Provider for Java API SDKs</name>
 
     <properties>
-        <version.com.google.code.gson.gson>2.2.4</version.com.google.code.gson.gson>
+        <version.com.google.code.gson.gson>2.8.9</version.com.google.code.gson.gson>
         <version.org.slf4j.slf4j.api>1.7.5</version.org.slf4j.slf4j.api>
     </properties>
 
