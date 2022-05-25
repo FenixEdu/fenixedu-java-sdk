@@ -15,7 +15,7 @@
 
     <properties>
         <version.org.springframework>4.0.1.RELEASE</version.org.springframework>
-    	<version.org.springframework.security>3.2.0.RELEASE</version.org.springframework.security>
+    	<version.org.springframework.security>5.5.7</version.org.springframework.security>
         <version.javax.servlet.api>3.0.1</version.javax.servlet.api>
     </properties>
 
